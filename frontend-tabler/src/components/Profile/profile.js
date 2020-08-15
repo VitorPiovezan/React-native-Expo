@@ -31,10 +31,10 @@ export default class Profile extends Component{
                 </ViewConfig>
 
                 <ViewConfigList>
-                    <ButtonConfigList><TextConfigList>Sua Ficha</TextConfigList></ButtonConfigList>
-                    <ButtonConfigList><TextConfigList>Editar Perfil</TextConfigList></ButtonConfigList>
-                    <ButtonConfigList><TextConfigList>Configurações de E-mail</TextConfigList></ButtonConfigList>
-                    <ButtonConfigList><TextConfigList /* onPress={() => Linking.openURL('https://drive.google.com/drive/folders/1n4vZLAZGmUyUmJ3SP-zFtiYaf7H9MaUG')} */>Manual do Jogador</TextConfigList></ButtonConfigList>
+                    <ButtonConfigList><TextConfigList onPress={() => this.props.navigation.navigate('Config')}>Sua Ficha </TextConfigList></ButtonConfigList>
+                    <ButtonConfigList><TextConfigList onPress={() => this.props.navigation.navigate('Config')}>Editar Perfil </TextConfigList></ButtonConfigList>
+                    <ButtonConfigList><TextConfigList onPress={() => this.props.navigation.navigate('Config')}>Configurações de E-mail </TextConfigList></ButtonConfigList>
+                    <ButtonConfigList><TextConfigList onPress={() => Linking.openURL('https://drive.google.com/drive/folders/1n4vZLAZGmUyUmJ3SP-zFtiYaf7H9MaUG')} >Manual do Jogador</TextConfigList></ButtonConfigList>
                 </ViewConfigList>
 
                 <ButtonOut  onPress={() => this.props.navigation.navigate('Login') } >

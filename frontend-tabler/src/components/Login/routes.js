@@ -5,22 +5,22 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './login';
 import Signup from '../Signup/signup';
 import Tab from '../Home/routes';
+import Config from '../Config/config';
 
 const Stack = createStackNavigator();
 
-function App() {
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{
                           headerShown: false,
                         }}
                         initialRouteName="Login">
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Signup" component={Signup} />
-        <Stack.Screen name="Routes" component={Tab} />
+        <Stack.Screen name="Login" component={Login} options={{gestureEnabled: true}}/>
+        <Stack.Screen name="Signup" component={Signup} options={{gestureEnabled: true}}/>
+        <Stack.Screen name="Routes" component={Tab}/>
+        <Stack.Screen name="Config" component={Config} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-export default App;

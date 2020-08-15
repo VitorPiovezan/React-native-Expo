@@ -355,6 +355,7 @@ export const TextButtonRoom = styled.Text`
 
 export const ViewButtonRoom = styled.View`
     right: 0;
+    bottom: 50%;
     align-items: center;
     width: 30%;
     position: absolute;

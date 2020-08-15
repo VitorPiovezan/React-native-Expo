@@ -33,8 +33,8 @@ export default class Home extends Component {
     }}
 
     componentDidMount() {
-        axios.get('https://jsonplaceholder.typicode.com/users') 
-        /* axios.get('http://170.83.209.206:8000/api/homePage')  */
+        /* axios.get('https://jsonplaceholder.typicode.com/users')  */
+        axios.get('http://170.83.209.192:8000/api/homePage') 
         .then(res => {
                 this.setState({ users: res.data});
                 console.log(this.state);
@@ -54,7 +54,7 @@ export default class Home extends Component {
                                 <IconsProfile source={require('../../assets/images/configIcon.png')} />
                             </ButtonProfile>
                             <ImgHomeConfig source={require('../../assets/images/logo.png')} />
-                            <ButtonProfile onPress={() => this.props.navigation.navigate('EditProfile')} >
+                            <ButtonProfile onPress={() => this.props.navigation.navigate('Profile')} >
                                 <IconsProfile source={require('../../assets/images/perfilIcon.png')} />
                             </ButtonProfile>
                         </ViewConfigsProfile>
@@ -73,8 +73,8 @@ export default class Home extends Component {
 
                                     {this.state.users.map(item => <ViewRoom>
                                         <ViewTitles>
-                                            <TitleRoom>{item.name}</TitleRoom>
-                                            <PlayersRoom>{item.id} Jogadores | 1 Mestre</PlayersRoom>
+                                            <TitleRoom>{item.title}</TitleRoom>
+                                            <PlayersRoom>{item.qtdeJog} Jogadores | M: {item.admMesa}</PlayersRoom>
                                         </ViewTitles>
 
                                         <ViewButtonRoom><ButtonRoom>
