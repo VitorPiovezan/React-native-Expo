@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StatusBar, AsyncStorage , StyleSheet, ImageBackground} from 'react-native';
+import axios from 'axios';
 
 import {
     Logo, 
@@ -15,34 +16,36 @@ import {
 
 export default class Signup extends Component{  
 
-    state = {
-        username: 'johnny123',
-        email: 'teste@teste.com.br',
-        password: '123456',
-        passwordConfirm: '123456',
-        error: '',
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            nickname: '',
+            password: '',
+            email: ''
+        }
     }
-    
-    handleNameChange = (username) => {
+
+    postaEssaCaralha = () => {
+        axios.post('http://170.83.209.192:8000/api/createUser', {
+            NOME_USUAR: `${this.state.username}`,
+            APELIDO_USUAR: `${this.state.nickname}`,
+            SENHA_USUAR: `${this.state.password}`,
+            EMAIL_USUAR: `${this.state.email}`,
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        
+             this.props.navigation.navigate('Routes');
+    } 
+
+/*    handleNameChange = (username) => {
         this.setState({ username });
-    }
-    
-    handleEmailChange = (email) => {
-        this.setState({ email });
-    }
-    
-    handlePasswordChange = (password) => {
-        this.setState({password});
-    }
-
-    handlePasswordConfirmation = (passwordConfirm) => {
-        this.setState({passwordConfirm});
-    }
-
-    
-    handleSignupPress = () => {
-      this.props.navigation.navigate('Routes');
-  }
+    } */
 
     render(){  
         return( 
@@ -52,7 +55,7 @@ export default class Signup extends Component{
                 <Title>Cadastrar-se</Title>
                 <Inputs 
                     autoCapitalize='none'
-                    onChangeText={this.handleNameChange}
+                    onChangeText={username => this.setState({ username })} 
                     value={this.state.username}
                     placeholder="Digite seu nome de usuario" 
                     autoFocus={true} 
@@ -60,30 +63,31 @@ export default class Signup extends Component{
                 />
                 <Inputs 
                     autoCapitalize='none'
-                    onChangeText={this.handleEmailChange}
-                    value={this.state.email}
-                    placeholder="Digite seu e-mail" 
-                    keyboardType="email-address"
+                    onChangeText={nickname => this.setState({ nickname })} 
+                    value={this.state.nickname}
+                    placeholder="Digite seu Apelido"
+                    returnKeyType = {"next"}
                 />
                 <Inputs 
                     autoCapitalize='none'
-                    value={this.state.password}
-                    onChangeText={this.handlePasswordChange}
-                    placeholder="Digite sua senha"
-                    secureTextEntry={true}/>
-
-
-                <Inputs
+                    onChangeText={email => this.setState({ email })} 
+                    value={this.state.email}
+                    placeholder="Digite seu e-mail" 
+                    keyboardType="email-address"
+                    returnKeyType = {"next"}
+                />
+                <Inputs 
                     autoCapitalize='none'
-                    onChange={this.handlePasswordConfirmation}
-                    value={this.state.passwordConfirm}
-                    placeholder="Digite a confirmacao"
+                    onChangeText={password => this.setState({ password })} 
+                    value={this.state.password}
+                    placeholder="Digite sua senha"
                     secureTextEntry={true}
+                    returnKeyType = {"next"}
                 />
 
                 <ButtonViewRegister>
                     <ButtonRegisterOk
-                        onPress={this.handleSignupPress}
+                        onPress={this.postaEssaCaralha}
                         >
                         <TextButton>Cadastrar-se</TextButton>
                     </ButtonRegisterOk>

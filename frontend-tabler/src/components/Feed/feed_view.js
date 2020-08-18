@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
     ViewRoom,
     ViewTitles,
@@ -10,22 +10,22 @@ import {
 } from './styles';
 import { ScrollView } from 'react-native-gesture-handler';
 
-export default class ScrollViewFeed extends Component {
-    render () {
-        return(
-        <ScrollView>
+const ListItems = (props) => {
 
-                {this.state.users.map(item => <ViewRoom>
+    return (
+
+            <ViewRoom>
                 <ViewTitles>
-                    <TitleRoom>{item.title}</TitleRoom>
-                    <PlayersRoom>{item.qtdeJog} Jogadores | M: {item.admMesa}</PlayersRoom>
+                    <TitleRoom>{props.title}</TitleRoom>
+                    <PlayersRoom>{props.qtdeJog} Jogadores | M: {props.admMesa}</PlayersRoom>
                 </ViewTitles>
 
                 <ViewButtonRoom><ButtonRoom>
-               <TextButtonRoom>Join</TextButtonRoom>
-            </ButtonRoom></ViewButtonRoom>
-            </ViewRoom>)}                                
+                    <TextButtonRoom>Join</TextButtonRoom>
+                </ButtonRoom></ViewButtonRoom>
+            </ViewRoom>
 
-        </ScrollView>
     )
-}}
+}
+
+export default ListItems;

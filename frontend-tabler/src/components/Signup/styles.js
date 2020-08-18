@@ -36,6 +36,7 @@ export const Logo = styled.Image`
     width: 250px;
     height: 250px;
     margin-bottom: -70px;
+    position: relative;
 `
 
 export const Inputs = styled.TextInput`

@@ -276,18 +276,6 @@ export const TitleHome = styled.Text`
     color: #5e3200
 `;
 
-export const Input = styled.TextInput`
-    color: #684d00;
-    background-color: #F9EBD5;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #684d00;
-    padding: 10px;
-    width: 85%;
-    border-radius: 20px;
-    margin-top: 15px;
-`;
-
 export const ViewRoom = styled.View`
     border-style: solid;
     border-top-width: 1px;
@@ -301,6 +289,13 @@ export const ViewOpenRoom = styled.View`
     margin-top: 20px;
     width: 85%;
     flex: 1;
+`;
+
+export const ViewSearchRoom = styled.View`
+    margin-top: 20px;
+    width: 85%;
+    flex: 1;
+    align-items: center;
 `;
 
 export const ViewTitles = styled.View`
@@ -340,4 +335,69 @@ export const ViewButtonRoom = styled.View`
     align-items: center;
     width: 30%;
     position: absolute;
+`;
+
+export const ImgSearchConfig = styled.Image`
+    width: 150px;
+    height: 150px;
+    margin: 0px 0px 15px 0px;
+`;
+
+export const TextPesq = styled.Text`
+    text-align: center;
+    font-size: 16;
+    font-weight: bold;    
+    color: #684d00;
+
+`;
+export const ButtonSearch1 = styled.TouchableOpacity`
+    margin-top: 15px;
+    justify-content: center;
+    background-color: #D9BA8E;
+    width: 23%;
+    height: 50px;
+    border-radius: 20px;
+    align-items: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #5E3200;
+    text-align: center;
+`;
+export const ButtonSearch = styled.TouchableOpacity`
+    justify-content: center;
+    background-color: #D9BA8E;
+    width: 23%;
+    height: 50px;
+    border-radius: 20px;
+    align-items: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #5E3200;
+    text-align: center;
+`;
+
+export const ViewSearch = styled.View`
+    flex-direction: row;
+    align-items: center;
+    margin-top: 15px;
+    justify-content: space-between;
+    width: 85%;
+
+`;
+
+    export const Input = styled.TextInput`
+    color: #684d00;
+    background-color: #F9EBD5;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #684d00;
+    padding: 10px;
+    width: 75%;
+    border-radius: 20px;
+`;
+
+export const TextSearch = styled.Text`
+    font-weight: bold;
+    color: #684d00;
+    font-size: 15;
 `;

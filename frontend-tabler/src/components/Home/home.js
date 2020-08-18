@@ -26,7 +26,7 @@ import { StyleSheet, ImageBackground } from 'react-native';
 import axios from 'axios';
 export default class Home extends Component {
     
-    constructor(props) {
+/*     constructor(props) {
         super(props);
         this.state = {
             users: [],
@@ -49,7 +49,6 @@ export default class Home extends Component {
     }
   
       componentDidMount(search) {
-           /* axios.get('https://jsonplaceholder.typicode.com/users')  */ 
           if(search === undefined){
               var teste = 'http://170.83.209.192:8000/api/homePage'
           }else{
@@ -65,7 +64,7 @@ export default class Home extends Component {
                   }
                 )
         } 
-  
+   */
 
     render() {
 
@@ -79,15 +78,16 @@ export default class Home extends Component {
                         </ViewTextProfile>
                     </ViewHeaderHome>
 
-                    <Input  placeholder="Pesquisar salas.." 
+                    <Input  placeholder="Pesquisar salas.." /* 
                             onChangeText={(this.handleChange)}
-                            value={this.state.titleSearch}/>
+                            value={this.state.titleSearch} *//>
 
                    <ViewOpenRoom>
-                        <ScrollView>
+
+                       <ScrollView>
 
 
-                                    {this.state.users.map(item => <ViewRoom>
+                                   {/*  {this.state.users.map(item => <ViewRoom>
                                         <ViewTitles>
                                             <TitleRoom>{item.title}</TitleRoom>
                                             <PlayersRoom>{item.qtdeJog} Jogadores | M: {item.admMesa}</PlayersRoom>
@@ -96,7 +96,7 @@ export default class Home extends Component {
                                         <ViewButtonRoom><ButtonRoom>
                                             <TextButtonRoom>Join</TextButtonRoom>
                                         </ButtonRoom></ViewButtonRoom>
-                                    </ViewRoom>)}                                
+                                    </ViewRoom>)}   */}                              
 
                         </ScrollView>
                     </ViewOpenRoom> 
