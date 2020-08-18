@@ -15,6 +15,12 @@ export default function App() {
       <Stack.Navigator screenOptions={{
                           headerShown: false,
                         }}
+                        tabBarOptions={{
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+      
+        }}
+        
                         initialRouteName="Login">
         <Stack.Screen name="Login" component={Login} options={{gestureEnabled: true}}/>
         <Stack.Screen name="Signup" component={Signup} options={{gestureEnabled: true}}/>

@@ -10,7 +10,18 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function HomeTab() {
   return (
-      <Tab.Navigator  initialRouteName="Feed">
+      <Tab.Navigator  tabBarOptions={{
+                        inactiveTintColor: '#99785D',
+                        activeTintColor: '#DDBC91',
+                        style: {
+                          backgroundColor: '#5e3200',
+                        },
+                        indicatorStyle: {
+                          heigth: '100%',
+                          backgroundColor: '#DDBC91'
+                        }
+                      }}
+                      initialRouteName="Feed">
       <Tab.Screen name="Feed" component={Feed} />
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Profile" component={Profile} />

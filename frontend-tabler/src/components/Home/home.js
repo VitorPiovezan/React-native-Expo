@@ -29,18 +29,43 @@ export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            users: []
-    }}
+            users: [],
+            titleSearch: '',
+            url:'http://170.83.209.192:8000/api/homePage'
+        }
+    }
 
-    componentDidMount() {
-        /* axios.get('https://jsonplaceholder.typicode.com/users')  */
-        axios.get('http://170.83.209.192:8000/api/homePage') 
-        .then(res => {
-                this.setState({ users: res.data});
-                console.log(this.state);
-                console.log(res.data);
-            })
-      }
+    handleChange = (titleSearch) => {
+        const title = titleSearch;
+        var search = 'http://170.83.209.192:8000/api/homePage';
+        this.setState({ titleSearch: title });
+        if (title !== ''){
+              var search = 'http://170.83.209.192:8000/api/searchRooms/'+titleSearch
+        }else {
+              var search = 'http://170.83.209.192:8000/api/homePage'
+        };
+        this.componentDidMount (search);
+        
+    }
+  
+      componentDidMount(search) {
+           /* axios.get('https://jsonplaceholder.typicode.com/users')  */ 
+          if(search === undefined){
+              var teste = 'http://170.83.209.192:8000/api/homePage'
+          }else{
+              var teste = search;
+          };
+          axios.get(`${teste}`) 
+          .then(res => {
+                  this.setState({ users: res.data});
+              }).catch(
+                  function (error) {
+                      console.log('Show error notification!')
+                      return Promise.reject(error)
+                  }
+                )
+        } 
+  
 
     render() {
 
@@ -49,25 +74,16 @@ export default class Home extends Component {
                 <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage} >
 
                     <ViewHeaderHome>
-                        <ViewConfigsProfile>
-                            <ButtonProfile onPress={() => this.props.navigation.navigate('Config')}>
-                                <IconsProfile source={require('../../assets/images/configIcon.png')} />
-                            </ButtonProfile>
-                            <ImgHomeConfig source={require('../../assets/images/logo.png')} />
-                            <ButtonProfile onPress={() => this.props.navigation.navigate('Profile')} >
-                                <IconsProfile source={require('../../assets/images/perfilIcon.png')} />
-                            </ButtonProfile>
-                        </ViewConfigsProfile>
-
                         <ViewTextProfile>
                             <TextBoxNameProfile>Bem Vindo Caralho</TextBoxNameProfile>
                         </ViewTextProfile>
                     </ViewHeaderHome>
 
-                    <TitleHome>Salas Abertas</TitleHome>
-                    <Input placeholder="Pesquisar salas.." />
+                    <Input  placeholder="Pesquisar salas.." 
+                            onChangeText={(this.handleChange)}
+                            value={this.state.titleSearch}/>
 
-                    <ViewOpenRoom>
+                   <ViewOpenRoom>
                         <ScrollView>
 
 
@@ -83,7 +99,7 @@ export default class Home extends Component {
                                     </ViewRoom>)}                                
 
                         </ScrollView>
-                    </ViewOpenRoom>
+                    </ViewOpenRoom> 
 
                 </ImageBackground>
             </ContainerHome>
