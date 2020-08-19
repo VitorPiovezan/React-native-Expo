@@ -28,7 +28,7 @@ export const Image = styled.Image`
 export const Nome = styled.Text`
     font-weight: bold;
     color: #fff;
-    font-size: 24;
+    font-size: 22;
     padding: 3px 0px 5px 10px;
 `
 

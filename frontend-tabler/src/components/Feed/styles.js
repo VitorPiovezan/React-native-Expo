@@ -28,7 +28,7 @@ export const Image = styled.Image`
 export const Nome = styled.Text`
     font-weight: bold;
     color: #fff;
-    font-size: 24;
+    font-size: 22;
     padding: 3px 0px 5px 10px;
 `
 
@@ -361,7 +361,6 @@ export const ButtonSearch1 = styled.TouchableOpacity`
     border-style: solid;
     border-width: 1px;
     border-color: #5E3200;
-    text-align: center;
 `;
 export const ButtonSearch = styled.TouchableOpacity`
     justify-content: center;
@@ -373,7 +372,6 @@ export const ButtonSearch = styled.TouchableOpacity`
     border-style: solid;
     border-width: 1px;
     border-color: #5E3200;
-    text-align: center;
 `;
 
 export const ViewSearch = styled.View`

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar, AsyncStorage , StyleSheet, ImageBackground} from 'react-native';
+import { Alert, StatusBar, AsyncStorage , StyleSheet, ImageBackground, Modal, TouchableHighlight, View, Text} from 'react-native';
 import axios from 'axios';
 
 import {
@@ -22,7 +22,8 @@ export default class Signup extends Component{
             username: '',
             nickname: '',
             password: '',
-            email: ''
+            email: '',
+            user: []
         }
     }
 
@@ -33,21 +34,37 @@ export default class Signup extends Component{
             SENHA_USUAR: `${this.state.password}`,
             EMAIL_USUAR: `${this.state.email}`,
         })
-            .then(function (response) {
-                console.log(response);
+            .then(res => {
+                this.setState({ user: res.data });
+                console.log(this.state.user.jaExiste);
+                if(this.state.username === '' || this.state.nickname === ''  || this.state.email === ''  || this.state.password === '' ){
+                    Alert.alert("Tabler", 'Faltou algum campo ae irmão!');
+
+                }else if(this.state.user.jaExiste === "email"){
+                    Alert.alert("Tabler", 'E-lmail já cadastrado, caso tenha digitado correto entre em contato com o desenvolvedor!');
+                    this.setState({ email: '' })
+
+                }else if(this.state.user.jaExiste === "apelido"){
+                    Alert.alert("Tabler", 'Apelido já existente lindão, tenta outro ai!');
+                    this.setState({ nickname: '' })
+
+                }else if(this.state.user.jaExiste === "usuarioCriado"){
+                    Alert.alert("Tabler", 'Usuário criado com sucesso! Se divirta pequeno gafanhoto...');
+                    this.props.navigation.navigate('Login');                    
+
+                }else{
+                    Alert.alert("Tabler", 'Estamos com problemas com nosso campo de cadastro, tente novamente mais tarde...');
+                };
             })
             .catch(function (error) {
                 console.log(error);
             });
         
-             this.props.navigation.navigate('Routes');
-    } 
+    }
 
-/*    handleNameChange = (username) => {
-        this.setState({ username });
-    } */
 
-    render(){  
+
+    render(){         
         return( 
             <Container>
                 <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage}>
@@ -101,7 +118,6 @@ export default class Signup extends Component{
                 height: '100%',
                 width: '100%',
                 alignItems: 'center',
-                resizeMode: 'cover',
                 justifyContent: 'center',
           }
           });

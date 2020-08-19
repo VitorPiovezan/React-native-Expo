@@ -8,7 +8,6 @@ import {
     TextButtonRoom,
     ViewButtonRoom
 } from './styles';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const ListItems = (props) => {
 

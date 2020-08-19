@@ -17,7 +17,6 @@ export default function HomeTab() {
                           backgroundColor: '#5e3200',
                         },
                         indicatorStyle: {
-                          heigth: '100%',
                           backgroundColor: '#DDBC91'
                         }
                       }}
