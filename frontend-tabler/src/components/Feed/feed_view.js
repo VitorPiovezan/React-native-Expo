@@ -19,7 +19,7 @@ const ListItems = (props) => {
                     <PlayersRoom>{props.qtdeJog} Jogadores | M: {props.admMesa}</PlayersRoom>
                 </ViewTitles>
 
-                <ViewButtonRoom><ButtonRoom>
+                <ViewButtonRoom><ButtonRoom onPress={props.handlePressJoin}>
                     <TextButtonRoom>Join</TextButtonRoom>
                 </ButtonRoom></ViewButtonRoom>
             </ViewRoom>

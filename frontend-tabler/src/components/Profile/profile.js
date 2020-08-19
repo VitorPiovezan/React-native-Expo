@@ -23,7 +23,7 @@ export default class Profile extends Component{
        <ContainerProfile>
            <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage}>
 
-                <ImgProfileConfig source={require('../../assets/images/perfil_image.png')}/>
+                <ImgProfileConfig source={require('../../assets/images/sputinikV.jpg')}/>
                 <TextNameUser>Offar</TextNameUser>
     
                 <ViewConfig>

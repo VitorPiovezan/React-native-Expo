@@ -33,7 +33,6 @@ export default class Feed extends Component {
         this.componentDidMount(undefined);
     }
 
-
     handleChange = () => {  
         var search = 'http://170.83.209.192:8000/api/homePage';
         if (this.state.titleSearch !== '') {
@@ -73,6 +72,7 @@ export default class Feed extends Component {
                                 title={item.title}
                                 qtdeJog={item.qtdeJog}
                                 admMesa={item.admMesa}
+                                handlePressJoin={() => this.props.navigation.navigate('Room')}
                                 />
         })}
         else {

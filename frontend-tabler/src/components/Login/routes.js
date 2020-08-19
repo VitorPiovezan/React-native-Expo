@@ -6,6 +6,7 @@ import Login from './login';
 import Signup from '../Signup/signup';
 import Tab from '../Home/routes';
 import Config from '../Config/config';
+import Room from '../Room/room';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen name="Signup" component={Signup} options={{gestureEnabled: true}}/>
         <Stack.Screen name="Routes" component={Tab}/>
         <Stack.Screen name="Config" component={Config} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
+        <Stack.Screen name="Room" component={Room} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

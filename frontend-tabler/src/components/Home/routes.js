@@ -20,9 +20,8 @@ export default function HomeTab() {
                           backgroundColor: '#DDBC91'
                         }
                       }}
-                      initialRouteName="Feed">
-      <Tab.Screen name="Feed" component={Feed} />
-        <Tab.Screen name="Home" component={Home} />
+                      initialRouteName="Rooms">
+      <Tab.Screen name="Rooms" component={Feed} />
         <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
   );

@@ -355,8 +355,8 @@ export const ButtonSearch1 = styled.TouchableOpacity`
     justify-content: center;
     background-color: #D9BA8E;
     width: 23%;
-    height: 50px;
-    border-radius: 20px;
+    height: 40px;
+    border-radius: 10px;
     align-items: center;
     border-style: solid;
     border-width: 1px;
@@ -366,8 +366,8 @@ export const ButtonSearch = styled.TouchableOpacity`
     justify-content: center;
     background-color: #D9BA8E;
     width: 23%;
-    height: 50px;
-    border-radius: 20px;
+    height: 40px;
+    border-radius: 10px;
     align-items: center;
     border-style: solid;
     border-width: 1px;
@@ -389,9 +389,9 @@ export const ViewSearch = styled.View`
     border-style: solid;
     border-width: 1px;
     border-color: #684d00;
-    padding: 10px;
+    padding: 5px;
     width: 75%;
-    border-radius: 20px;
+    border-radius: 10px;
 `;
 
 export const TextSearch = styled.Text`
