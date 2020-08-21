@@ -16,7 +16,7 @@ import {
 
 import api from '../../api/api';
 
-export default function Login() {
+export default function Login({navigation}) {
 
     console.disableYellowBox = true; //para ignorar warnigns
 
@@ -29,7 +29,6 @@ export default function Login() {
         }
     });
 
-    const navigation = useNavigation();
     const [nickname, setNickname] = useState('Offar');
     const [password, setPassword] = useState('123456');
     const [error, setError] = useState([]);
@@ -54,13 +53,10 @@ export default function Login() {
                 const { token } = res.data;
                 await AsyncStorage.setItem('user', token); */
 
-                navigation.navigate('Routes', 
-                    {
-                    screen: 'Feed',
-                    params: {
-                        actualUser: res.data
-                    }
-                      })
+                console.log(res.data.id)
+                navigation.navigate('Routes', {
+                        actualUser: res.data.id
+                    })
                 }  
     }
 

@@ -2,6 +2,14 @@ import React, { useEffect, useState, Component } from 'react';
 
 import {
     ContainerRoom,
+    DetailsRoom,
+    Avatar,
+    Dados,
+    TextDetails,
+    HeaderRoom,
+    BottomBack,
+    IconBack,
+    TituloMesa
 } from './styles';
 
 import api from '../../api/api'
@@ -44,7 +52,22 @@ export default function Room({navigation, route}) {
     return (
         <ContainerRoom>
             <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage} >
-                <Text>{idSala}</Text>
+                
+                <HeaderRoom>
+                    <BottomBack onPress={() => navigation.navigate('Routes')}>
+                        <IconBack source={require('../../assets/icons/back.png')}/>
+                    </BottomBack>
+                    <TituloMesa> {rooms.title} </TituloMesa>
+                </HeaderRoom>
+
+                <DetailsRoom>
+                    <Avatar source={require('../../assets/images/puts.png')} />
+                    <Dados>
+                        <TextDetails>Mestre: {rooms.admMesa} </TextDetails>
+                        <TextDetails>Nickname: {rooms.title} </TextDetails>
+                    </Dados>
+                </DetailsRoom>
+
             </ImageBackground>
         </ContainerRoom>
 
