@@ -1,4 +1,137 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { StatusBar, StyleSheet, ImageBackground, Alert } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+
+import {
+    Logo,
+    Container,
+    Title,
+    Inputs,
+    ButtonView,
+    Button,
+    TextButton
+} from './styles';
+
+
+import api from '../../api/api';
+
+export default function Login() {
+
+    console.disableYellowBox = true; //para ignorar warnigns
+
+    const styles = StyleSheet.create({
+        backgroundImage: {
+            height: '100%',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+        }
+    });
+
+    const navigation = useNavigation();
+    const [nickname, setNickname] = useState('Offar');
+    const [password, setPassword] = useState('123456');
+    const [error, setError] = useState([]);
+
+    async function handleLogin() {
+        const res = await api.post('/login', 
+                    {
+                        APELIDO_USUAR: nickname,
+                        SENHA_USUAR: password,
+                    });
+
+        if (nickname === '' || password === '') {
+                Alert.alert("Tabler", 'Faltou algum campo ae irmão!');
+
+        } else if (res.data.jaExiste === "UsuarioInexistente") {
+                Alert.alert("Tabler", 'Usuário ou senha incorretos, tente novamente amigão!');
+
+        } else {
+                const loggedUser = res.data;
+                console.log(loggedUser);
+                console.log('Esse de cima é o usuário')
+                const { token } = res.data;
+                await AsyncStorage.setItem('user', token);
+
+                navigation.navigate('Routes', 
+                    {
+                    screen: 'Feed',
+                    params: {
+                        actualUser: res.data
+                    }
+                      })
+                }  
+    }
+
+        return (
+
+            <Container>
+                <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage}>
+                    <StatusBar
+                        barStyle="light-content"
+                        backgroundColor="#5E3200"
+                    />
+                    <Logo source={require('../../assets/images/logo.png')} />
+                    <Title>Login</Title>
+
+                    <Inputs
+                        autoCapitalize='none'
+                        onChangeText={setNickname}
+                        value={nickname}
+                        placeholder="Digite seu e-mail"
+                        keyboardType="email-address"
+                        returnKeyType={"next"} />
+
+                    <Inputs
+                        autoCapitalize='none'
+                        onChangeText={setPassword}
+                        value={password}
+                        placeholder="Digite sua senha"
+                        secureTextEntry={true} />
+
+                    <ButtonView>
+                        <Button onPress={handleLogin}>
+                            <TextButton>Login</TextButton>
+                        </Button>
+                        <Button
+                            onPress={() => navigation.navigate('Signup')}
+                        >
+                            <TextButton>Cadastre-se</TextButton>
+                        </Button>
+                    </ButtonView>
+                </ImageBackground>
+            </Container>
+        )
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* import React, { Component } from 'react';
 import { StatusBar, StyleSheet, ImageBackground, Alert } from 'react-native';
 import axios from 'axios';
 import {
@@ -24,7 +157,7 @@ export default class Login extends Component {
     }
 
     postaEssaCaralha = () => {
-        axios.post('http://170.83.209.192:8000/api/login', {
+        axios.post('http://170.83.208.84:8000/api/login', {
             APELIDO_USUAR: `${this.state.nickname}`,
             SENHA_USUAR: `${this.state.password}`,
         })
@@ -105,4 +238,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     }
-});
+}); */

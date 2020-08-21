@@ -28,7 +28,7 @@ export default class Signup extends Component{
     }
 
     postaEssaCaralha = () => {
-        axios.post('http://170.83.209.192:8000/api/createUser', {
+        axios.post('http://170.83.208.84:8000/api/createUser', {
             NOME_USUAR: `${this.state.username}`,
             APELIDO_USUAR: `${this.state.nickname}`,
             SENHA_USUAR: `${this.state.password}`,

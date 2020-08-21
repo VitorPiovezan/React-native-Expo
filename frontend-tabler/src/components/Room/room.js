@@ -2,28 +2,17 @@ import React, { Component } from 'react';
 
 import {
     ContainerRoom,
-    ViewHeaderRoom,
-    ViewTextProfile,
-    TextBoxNameProfile,
 } from './styles';
 
+import {route} from '@react-navigation/native';
 import { StyleSheet, ImageBackground } from 'react-native';
-export default class Home extends Component {
 
+export default class Room extends Component {
+    
     render() {
-
         return (
             <ContainerRoom>
                 <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage} >
-
-                    <ViewHeaderRoom>
-                        <ViewTextProfile>
-                            <TextBoxNameProfile>Bem Vindo Caralho</TextBoxNameProfile>
-                        </ViewTextProfile>
-                    </ViewHeaderRoom>
-
-
-
                 </ImageBackground>
             </ContainerRoom>
 

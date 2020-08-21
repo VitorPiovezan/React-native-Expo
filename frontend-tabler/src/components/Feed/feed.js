@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import {
     ContainerHome,
@@ -13,146 +13,126 @@ import {
     ButtonSearch1
 } from './styles';
 
+import api from '../../api/api';
 import ListItems from './feed_view';
 import { ScrollView } from 'react-native-gesture-handler';
-import { StyleSheet, ImageBackground } from 'react-native';
-import axios from 'axios';
-export default class Feed extends Component {
+import { StyleSheet, ImageBackground, } from 'react-native';
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            users: [],
-            titleSearch: ''
+export default function Feed({ route, navigation }) {
+
+    const styles = StyleSheet.create({
+        backgroundImage: {
+            flex: 1,
+            height: '100%',
+            width: '100%',
+            alignItems: 'center',
+        },
+        container: {
+            flex: 1,
+            backgroundColor: '#D9BA8E',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        body: {
+            backgroundColor: '#D9BA8E'
         }
-    }
+    });
 
-    backFeed = () => {
-        this.setState({titleSearch: ''});
+    const [titleSearch, setTitleSearch] = useState('');
+    const [tables, setTables] = useState([]);
+
+    const backFeed = () => {
+        setTitleSearch({ titleSearch: '' });
         var search = undefined;
-        this.componentDidMount(undefined);
+        handleLogin(undefined);
     }
 
-    handleChange = () => {  
-        var search = 'http://170.83.209.192:8000/api/homePage';
-        if (this.state.titleSearch !== '') {
-            var search = 'http://170.83.209.192:8000/api/searchRooms/' + this.state.titleSearch
+    const handleChange = () => {
+        var search = 'homePage';
+        if (titleSearch !== '') {
+            var search = 'searchRooms/' + titleSearch
         } else {
-            var search = 'http://170.83.209.192:8000/api/homePage'
+            var search = 'homePage'
         };
-        this.componentDidMount(search);
-
+        handleLogin(search);
     }
 
-    componentDidMount(search) {
-        /* axios.get('https://jsonplaceholder.typicode.com/users')  */
+    const handlePressJoinRoom = (RoomID) => {
+        //Aqui vou passar os parametros para a Pre-view da sala 
+        console.log(RoomID)
+    }
+
+    async function handleLogin(search) {    //Ta rodando dessa forma mas está em looping a requisição com o banco
         if (search === undefined) {
-            var teste = 'http://170.83.209.192:8000/api/homePage'
+            var uri = 'homePage'
         } else {
-            var teste = search;
+            var uri = search;
         };
-        axios.get(`${teste}`)
-            .then(res => {
-                this.setState({ users: res.data });
-            }).catch(
-                function (error) {
-                    console.log('Show error notification!')
-                    return Promise.reject(error)
-                }
-            )
+
+        const res = await api.get(`${uri}`);
+        console.log(res.data)
+        setTables(res.data)
+        
     }
 
-    render() {
-        
-        let listaDeItens = null
+//Apartir daqui é a renderização em tela.
+    let listaDeItens = null
 
-        if (this.state.users !== null){
-        listaDeItens = this.state.users.map(item => {
-            return <ListItems 
-                                title={item.title}
-                                qtdeJog={item.qtdeJog}
-                                admMesa={item.admMesa}
-                                handlePressJoin={() => this.props.navigation.navigate('Room')}
-                                />
-        })}
-        else {
-            return <ContainerHome>
-                <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage} >
-                    <ViewSearch>
-                        <Input placeholder="Pesquisar salas.."
-                            value={this.state.titleSearch}
-                            onChangeText={titleSearch => this.setState({ titleSearch })} />
-
-                        <ButtonSearch onPress={(this.handleChange)} ><TextSearch>Busca</TextSearch></ButtonSearch>
-                    </ViewSearch>
-                    <ViewSearchRoom>
-                        <ImgSearchConfig source={require('../../assets/images/puts.png')}/>
-                        <TextPesq>Sorry Bro, you shall not pass son of a Bitch</TextPesq>
-                        <ButtonSearch1 onPress={(this.backFeed)} ><TextSearch>Voltar</TextSearch></ButtonSearch1>
-                    </ViewSearchRoom>
-
-                </ImageBackground>
-            </ContainerHome>
-        }
-
-        
-
-        return (
-            <ContainerHome>
-                <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage} >
-                    <ViewSearch>
-                        <Input placeholder="Pesquisar salas.."
-                            value={this.state.titleSearch}
-                            onChangeText={titleSearch => this.setState({ titleSearch })} />
-
-                        <ButtonSearch onPress={(this.handleChange)} ><TextSearch>Busca</TextSearch></ButtonSearch>
-                    </ViewSearch>
-                    <ViewOpenRoom>
-                        <ScrollView>
-
-                            {listaDeItens}
-
-
-                            {/* 
-
-                                    {this.state.users.map(item => <ViewRoom>
-                                        <ViewTitles>
-                                            <TitleRoom>{item.title}</TitleRoom>
-                                            <PlayersRoom>{item.qtdeJog} Jogadores | M: {item.admMesa}</PlayersRoom>
-                                        </ViewTitles>
-
-                                        <ViewButtonRoom><ButtonRoom>
-                                            <TextButtonRoom>Join</TextButtonRoom>
-                                        </ButtonRoom></ViewButtonRoom>
-                                    </ViewRoom>)}  */}
-
-                        </ScrollView>
-                    </ViewOpenRoom>
-
-                </ImageBackground>
-            </ContainerHome>
-
-        )
+    if (tables !== null) {
+        listaDeItens = tables.map(item => {
+            return <ListItems
+                title={item.title}
+                qtdeJog={item.qtdeJog}
+                admMesa={item.admMesa}
+                handlePressJoin={() => handlePressJoinRoom(item.id)}
+            />
+        })
     }
+    else {
+        return <ContainerHome>
+            <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage} >
+                <ViewSearch>
+                    <Input placeholder="Pesquisar salas.."
+                        value={titleSearch}
+                        onChangeText={setTitleSearch} />
+
+                    <ButtonSearch onPress={(handleChange())} ><TextSearch>Busca</TextSearch></ButtonSearch>
+                </ViewSearch>
+                <ViewSearchRoom>
+                    <ImgSearchConfig source={require('../../assets/images/puts.png')} />
+                    <TextPesq>Sorry Bro, you shall not pass son of a Bitch</TextPesq>
+                    <ButtonSearch1 onPress={backFeed()} ><TextSearch>Voltar</TextSearch></ButtonSearch1>
+                </ViewSearchRoom>
+
+            </ImageBackground>
+        </ContainerHome>
+    }
+
+    return (
+        <ContainerHome>
+            <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage} >
+                <ViewSearch>
+                    <Input placeholder="Pesquisar salas.."
+                        value={titleSearch}
+                        onChangeText={setTitleSearch} />
+
+                    <ButtonSearch onPress={handleChange()} ><TextSearch>Busca</TextSearch></ButtonSearch>
+                </ViewSearch>
+                <ViewOpenRoom>
+                    <ScrollView>
+
+                        {listaDeItens}
+
+                    </ScrollView>
+                </ViewOpenRoom>
+
+            </ImageBackground>
+        </ContainerHome>
+
+    )
+
+
 }
-
-const styles = StyleSheet.create({
-    backgroundImage: {
-        flex: 1,
-        height: '100%',
-        width: '100%',
-        alignItems: 'center',
-    },
-    container: {
-        flex: 1,
-        backgroundColor: '#D9BA8E',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    body: {
-        backgroundColor: '#D9BA8E'
-    }
-});
 
 
 

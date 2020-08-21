@@ -31,18 +31,18 @@ export default class Home extends Component {
         this.state = {
             users: [],
             titleSearch: '',
-            url:'http://170.83.209.192:8000/api/homePage'
+            url:'http://170.83.208.84:8000/api/homePage'
         }
     }
 
     handleChange = (titleSearch) => {
         const title = titleSearch;
-        var search = 'http://170.83.209.192:8000/api/homePage';
+        var search = 'http://170.83.208.84:8000/api/homePage';
         this.setState({ titleSearch: title });
         if (title !== ''){
-              var search = 'http://170.83.209.192:8000/api/searchRooms/'+titleSearch
+              var search = 'http://170.83.208.84:8000/api/searchRooms/'+titleSearch
         }else {
-              var search = 'http://170.83.209.192:8000/api/homePage'
+              var search = 'http://170.83.208.84:8000/api/homePage'
         };
         this.componentDidMount (search);
         
@@ -50,7 +50,7 @@ export default class Home extends Component {
   
       componentDidMount(search) {
           if(search === undefined){
-              var teste = 'http://170.83.209.192:8000/api/homePage'
+              var teste = 'http://170.83.208.84:8000/api/homePage'
           }else{
               var teste = search;
           };
