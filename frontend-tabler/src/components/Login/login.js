@@ -50,9 +50,9 @@ export default function Login() {
         } else {
                 const loggedUser = res.data;
                 console.log(loggedUser);
-                console.log('Esse de cima é o usuário')
+                console.log('Esse de cima é o usuário')/* 
                 const { token } = res.data;
-                await AsyncStorage.setItem('user', token);
+                await AsyncStorage.setItem('user', token); */
 
                 navigation.navigate('Routes', 
                     {

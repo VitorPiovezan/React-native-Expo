@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
     ContainerHome,
@@ -18,7 +18,7 @@ import ListItems from './feed_view';
 import { ScrollView } from 'react-native-gesture-handler';
 import { StyleSheet, ImageBackground, } from 'react-native';
 
-export default function Feed({ route, navigation }) {
+export default function Feed({navigation}) {
 
     const styles = StyleSheet.create({
         backgroundImage: {
@@ -38,44 +38,69 @@ export default function Feed({ route, navigation }) {
         }
     });
 
+
+
+    useEffect(() => {
+        api.get('homePage')
+            .then((res) => {
+                setTables(res.data)
+            })
+        console.log('passou no useEffect')
+      }, [tables]);
+
     const [titleSearch, setTitleSearch] = useState('');
     const [tables, setTables] = useState([]);
-
+    
     const backFeed = () => {
-        setTitleSearch({ titleSearch: '' });
-        var search = undefined;
-        handleLogin(undefined);
+        setTitleSearch('')
+        console.log(titleSearch)
+        console.log('passou no backFeed')
+        api.get('homePage')
+            .then((res) => {
+                setTables(res.data)
+            })
     }
 
-    const handleChange = () => {
-        var search = 'homePage';
-        if (titleSearch !== '') {
+    function checkSearch (strPalavra){
+        return strPalavra.includes('/',0)
+    }
+
+    function handleChange() {
+        
+        if (checkSearch(titleSearch) === true){
+            setTables(null)
+        }
+
+        if ( titleSearch !== '' ) {
             var search = 'searchRooms/' + titleSearch
         } else {
             var search = 'homePage'
         };
-        handleLogin(search);
-    }
 
-    const handlePressJoinRoom = (RoomID) => {
-        //Aqui vou passar os parametros para a Pre-view da sala 
-        console.log(RoomID)
-    }
-
-    async function handleLogin(search) {    //Ta rodando dessa forma mas está em looping a requisição com o banco
         if (search === undefined) {
             var uri = 'homePage'
         } else {
             var uri = search;
         };
 
-        const res = await api.get(`${uri}`);
-        console.log(res.data)
-        setTables(res.data)
-        
+        api.get(`${uri}`)
+            .then((res) => {
+                setTables(res.data)
+            })
+        console.log('passou no handleChange')
     }
 
-//Apartir daqui é a renderização em tela.
+    const handlePressJoinRoom = (RoomID) => {
+        //Aqui vou passar os parametros para a Pre-view da sala 
+        navigation.navigate('Room', {
+            roomID: RoomID
+        })
+        console.log(RoomID)
+    }
+
+
+
+    //Apartir daqui é a renderização em tela.
     let listaDeItens = null
 
     if (tables !== null) {
@@ -88,20 +113,23 @@ export default function Feed({ route, navigation }) {
             />
         })
     }
+
+
     else {
         return <ContainerHome>
             <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage} >
                 <ViewSearch>
                     <Input placeholder="Pesquisar salas.."
                         value={titleSearch}
-                        onChangeText={setTitleSearch} />
+                        onChangeText={setTitleSearch}
+                        textContentType='name' />
 
-                    <ButtonSearch onPress={(handleChange())} ><TextSearch>Busca</TextSearch></ButtonSearch>
+                    <ButtonSearch onPress={handleChange} ><TextSearch>Busca</TextSearch></ButtonSearch>
                 </ViewSearch>
                 <ViewSearchRoom>
                     <ImgSearchConfig source={require('../../assets/images/puts.png')} />
                     <TextPesq>Sorry Bro, you shall not pass son of a Bitch</TextPesq>
-                    <ButtonSearch1 onPress={backFeed()} ><TextSearch>Voltar</TextSearch></ButtonSearch1>
+                    <ButtonSearch1 onPress={backFeed} ><TextSearch>Voltar</TextSearch></ButtonSearch1>
                 </ViewSearchRoom>
 
             </ImageBackground>
@@ -114,9 +142,10 @@ export default function Feed({ route, navigation }) {
                 <ViewSearch>
                     <Input placeholder="Pesquisar salas.."
                         value={titleSearch}
-                        onChangeText={setTitleSearch} />
+                        onChangeText={setTitleSearch} 
+                        textContentType='name'/>
 
-                    <ButtonSearch onPress={handleChange()} ><TextSearch>Busca</TextSearch></ButtonSearch>
+                    <ButtonSearch onPress={handleChange} ><TextSearch>Busca</TextSearch></ButtonSearch>
                 </ViewSearch>
                 <ViewOpenRoom>
                     <ScrollView>

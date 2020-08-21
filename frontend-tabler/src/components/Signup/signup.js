@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { Alert, StatusBar, AsyncStorage , StyleSheet, ImageBackground, Modal, TouchableHighlight, View, Text} from 'react-native';
-import axios from 'axios';
+import React, { Component, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { Alert, StyleSheet, ImageBackground, Modal, TouchableHighlight, View, Text} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {
     Logo, 
@@ -13,58 +14,62 @@ import {
     TextButton
 } from './styles';
 
+import api from '../../api/api';
 
-export default class Signup extends Component{  
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            nickname: '',
-            password: '',
-            email: '',
-            user: []
-        }
-    }
+export default function Signup() {
 
-    postaEssaCaralha = () => {
-        axios.post('http://170.83.208.84:8000/api/createUser', {
-            NOME_USUAR: `${this.state.username}`,
-            APELIDO_USUAR: `${this.state.nickname}`,
-            SENHA_USUAR: `${this.state.password}`,
-            EMAIL_USUAR: `${this.state.email}`,
-        })
-            .then(res => {
-                this.setState({ user: res.data });
-                console.log(this.state.user.jaExiste);
-                if(this.state.username === '' || this.state.nickname === ''  || this.state.email === ''  || this.state.password === '' ){
+    const styles = StyleSheet.create({
+        backgroundImage: {
+            height: '100%',
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+      }
+      });
+
+    const navigation = useNavigation();
+    const [username, setUsername] = useState('');
+    const [nickname, setNickname] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+
+    async function postaEssaCaralha() {
+                const res = await api.post('createUser', 
+                    {
+                        NOME_USUAR: `${username}`,
+                        APELIDO_USUAR: `${nickname}`,
+                        SENHA_USUAR: `${password}`,
+                        EMAIL_USUAR: `${email}`,
+                    })
+
+                if(username === '' || nickname === ''  || email === ''  || password === '' ){
                     Alert.alert("Tabler", 'Faltou algum campo ae irmão!');
+                    console.log('Faltou algum campo ae irmão!')
 
-                }else if(this.state.user.jaExiste === "email"){
-                    Alert.alert("Tabler", 'E-lmail já cadastrado, caso tenha digitado correto entre em contato com o desenvolvedor!');
-                    this.setState({ email: '' })
+                }
+                
+                if(res.data.jaExiste === "email"){
+                    Alert.alert("Tabler", 'E-mail já cadastrado, caso tenha digitado correto entre em contato com o desenvolvedor!');
+                    setEmail('')
+                    console.log('E-mail já cadastrado, caso tenha digitado correto entre em contato com o desenvolvedor!')
 
-                }else if(this.state.user.jaExiste === "apelido"){
+                }else if(res.data.jaExiste === "apelido"){
                     Alert.alert("Tabler", 'Apelido já existente lindão, tenta outro ai!');
-                    this.setState({ nickname: '' })
+                    setNickname('')
+                    console.log('Apelido já existente lindão, tenta outro ai!')
 
-                }else if(this.state.user.jaExiste === "usuarioCriado"){
+                }else if(res.data.jaExiste === "usuarioCriado"){
                     Alert.alert("Tabler", 'Usuário criado com sucesso! Se divirta pequeno gafanhoto...');
-                    this.props.navigation.navigate('Login');                    
+                    console.log('Usuário criado com sucesso! Se divirta pequeno gafanhoto...')
+                    navigation.navigate('Login');                    
 
                 }else{
                     Alert.alert("Tabler", 'Estamos com problemas com nosso campo de cadastro, tente novamente mais tarde...');
-                };
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        
+                }        
     }
 
-
-
-    render(){         
+        
         return( 
             <Container>
                 <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage}>
@@ -72,31 +77,31 @@ export default class Signup extends Component{
                 <Title>Cadastrar-se</Title>
                 <Inputs 
                     autoCapitalize='none'
-                    onChangeText={username => this.setState({ username })} 
-                    value={this.state.username}
+                    onChangeText={setUsername} 
+                    value={username}
                     placeholder="Digite seu nome de usuario" 
                     autoFocus={true} 
                     returnKeyType = {"next"}
                 />
                 <Inputs 
                     autoCapitalize='none'
-                    onChangeText={nickname => this.setState({ nickname })} 
-                    value={this.state.nickname}
+                    onChangeText={setNickname} 
+                    value={nickname}
                     placeholder="Digite seu Apelido"
                     returnKeyType = {"next"}
                 />
                 <Inputs 
                     autoCapitalize='none'
-                    onChangeText={email => this.setState({ email })} 
-                    value={this.state.email}
+                    onChangeText={setEmail} 
+                    value={email}
                     placeholder="Digite seu e-mail" 
                     keyboardType="email-address"
                     returnKeyType = {"next"}
                 />
                 <Inputs 
                     autoCapitalize='none'
-                    onChangeText={password => this.setState({ password })} 
-                    value={this.state.password}
+                    onChangeText={setPassword} 
+                    value={password}
                     placeholder="Digite sua senha"
                     secureTextEntry={true}
                     returnKeyType = {"next"}
@@ -104,24 +109,11 @@ export default class Signup extends Component{
 
                 <ButtonViewRegister>
                     <ButtonRegisterOk
-                        onPress={this.postaEssaCaralha}
+                        onPress={postaEssaCaralha}
                         >
                         <TextButton>Cadastrar-se</TextButton>
                     </ButtonRegisterOk>
                 </ButtonViewRegister>
                 </ImageBackground>
             </Container>
-        )}}
-        
-        const styles = StyleSheet.create({
-            backgroundImage: {
-                height: '100%',
-                width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-          }
-          });
-
-        Signup.navigationOptions = {
-            header: null
-          }
+        )}
