@@ -16,10 +16,11 @@ import {
 import api from '../../api/api';
 import ListItems from './feed_view';
 import { ScrollView } from 'react-native-gesture-handler';
-import { StyleSheet, ImageBackground, } from 'react-native';
+import { StyleSheet, ImageBackground, TouchableWithoutFeedbackBase, } from 'react-native';
 
-export default function Feed({navigation}) {
+export default function Feed({route, navigation}) {
 
+    const user = (route.params.userId)
     const styles = StyleSheet.create({
         backgroundImage: {
             flex: 1,
@@ -45,7 +46,7 @@ export default function Feed({navigation}) {
             .then((res) => {
                 setTables(res.data)
             })
-        console.log('passou no useEffect')
+       /*  console.log('passou no useEffect') */
       }, [tables]);
 
     const [titleSearch, setTitleSearch] = useState('');
@@ -53,8 +54,8 @@ export default function Feed({navigation}) {
     
     const backFeed = () => {
         setTitleSearch('')
-        console.log(titleSearch)
-        console.log('passou no backFeed')
+        /* console.log(titleSearch)
+        console.log('passou no backFeed') */
         api.get('homePage')
             .then((res) => {
                 setTables(res.data)
@@ -92,10 +93,10 @@ export default function Feed({navigation}) {
 
     const handlePressJoinRoom = (RoomID) => {
         //Aqui vou passar os parametros para a Pre-view da sala 
-        navigation.navigate('Room', {
+        navigation.navigate('Preview', {
             roomID: RoomID
         })
-        console.log(RoomID)
+        /* console.log(RoomID) */
     }
 
 
@@ -106,6 +107,7 @@ export default function Feed({navigation}) {
     if (tables !== null) {
         listaDeItens = tables.map(item => {
             return <ListItems
+                key={item.id}
                 title={item.title}
                 qtdeJog={item.qtdeJog}
                 admMesa={item.admMesa}

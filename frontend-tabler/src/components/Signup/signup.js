@@ -47,9 +47,7 @@ export default function Signup() {
                     Alert.alert("Tabler", 'Faltou algum campo ae irmão!');
                     console.log('Faltou algum campo ae irmão!')
 
-                }
-                
-                if(res.data.jaExiste === "email"){
+                }else if(res.data.jaExiste === "email"){
                     Alert.alert("Tabler", 'E-mail já cadastrado, caso tenha digitado correto entre em contato com o desenvolvedor!');
                     setEmail('')
                     console.log('E-mail já cadastrado, caso tenha digitado correto entre em contato com o desenvolvedor!')

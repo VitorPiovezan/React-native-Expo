@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Navigation } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from './login';
 import Signup from '../Signup/signup';
 import Tab from '../Home/routes';
 import Config from '../Config/config';
-import Room from '../Room/room';
+import Preview from '../Room/preview'
 
 const Stack = createStackNavigator();
 
@@ -23,11 +22,11 @@ export default function App() {
         }}
         
                         initialRouteName="Login">
-        <Stack.Screen name="Login" component={Login} options={{gestureEnabled: true}}/>
-        <Stack.Screen name="Signup" component={Signup} options={{gestureEnabled: true}}/>
+        <Stack.Screen name="Login" component={Login}/>
+        <Stack.Screen name="Signup" component={Signup} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
         <Stack.Screen name="Routes" component={Tab}/>
         <Stack.Screen name="Config" component={Config} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
-        <Stack.Screen name="Room" component={Room} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
+        <Stack.Screen name="Preview" component={Preview} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

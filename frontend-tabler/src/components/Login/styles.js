@@ -18,7 +18,7 @@ export const Container = styled.View`
 export const SubTitle = styled.Text`
     color: #684d00;
     font-weight: bold;
-    font-size: 12;
+    font-size: 12px;
     text-align: center;
     margin-bottom: 10px;
 `
@@ -26,7 +26,7 @@ export const SubTitle = styled.Text`
 export const Title = styled.Text`
     color: #684d00;
     font-weight: bold;
-    font-size: 24;
+    font-size: 24px;
     text-align: center;
     margin-bottom: 10px;
 `

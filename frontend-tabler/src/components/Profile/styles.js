@@ -1,9 +1,8 @@
 import styled from 'styled-components/native';
 /* Styles Profile */
 export const ContainerProfile = styled.View`
-    flex: auto;
+    flex: 1;
     align-items: center;
-    background-color: #D9BA8E;
 `;
 export const ImgProfileConfig = styled.Image`
     width: 150px;
@@ -14,7 +13,7 @@ export const ImgProfileConfig = styled.Image`
 export const TextNameUser = styled.Text`
     color: #5e3200;
     font-weight: bold;
-    font-size: 26;
+    font-size: 26px;
     padding: 20px;
 `;
 export const ViewConfig = styled.View`
@@ -29,14 +28,13 @@ export const ViewConfig = styled.View`
 export const TextConfig = styled.Text`
     color: #5e3200;
     font-weight: bold;
-    font-size: 20;
+    font-size: 20px;
 `;
 export const ViewConfigList = styled.View`
     border-style: solid;
     border-top-color: #5e3200;
     border-top-width: 2px;
-    height: 100%;
-    width: 80%;
+    width: 85%;
 `;
 export const ButtonConfigList = styled.TouchableOpacity`
     border-style: solid;
@@ -47,47 +45,43 @@ export const ButtonConfigList = styled.TouchableOpacity`
 `;
 export const TextConfigList = styled.Text`
     color: #5E3200;
-    font-size: 18;
+    font-size: 18px;
     padding-bottom: 15px;
 `;
 
 /* Rodapé */
 
-export const ViewRodape = styled.View`
-    border-style: solid;
-    border-top-width: 1px;
-    border-top-color: #5E3200
-    width: 100%;
-    height: 70px;
-    bottom: 0;
+export const ViewSair = styled.View`
     position: absolute;
-    align-items: center;
-    justify-content: center;
+    right: 15px;
+    top: 15px;
 `;
+
 export const TextBoxRodape = styled.Text`
-    font-size: 12;
+    font-size: 12px;
     color: #5E3200;
     margin-bottom: 4px;
 `;
-export const ViewButtonOut = styled.View`
+
+export const ButtonOut = styled.TouchableOpacity`
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 50px;
     height: 50px;
     border-style: solid;
     border-width: 1px;
     border-color: #5E3200;
     border-radius: 30px;
 `;
-export const ButtonOut = styled.TouchableOpacity`
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    height: 40px;
-    position: absolute;
-    bottom: 100;
+
+export const IconLogout = styled.Image`
+    width: 60%;
+    height: 60%;
+    margin-left: 2px;
 `;
-export const TextBoxButtonOut = styled.Text`
-    font-size: 20;
-    color: #5E3200;
+
+export const ViewContRodape = styled.View`
+    align-items: center;
+    width: 100%;
+    padding: 30px;
 `;

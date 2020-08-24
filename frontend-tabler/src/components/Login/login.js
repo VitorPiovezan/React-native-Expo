@@ -1,7 +1,5 @@
-import React, { Component, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
 import { StatusBar, StyleSheet, ImageBackground, Alert } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 
 import {
     Logo,
@@ -48,16 +46,28 @@ export default function Login({navigation}) {
 
         } else {
                 const loggedUser = res.data;
-                console.log(loggedUser);
-                console.log('Esse de cima é o usuário')/* 
+                /*console.log(loggedUser);
+                console.log('Esse de cima é o usuário')
                 const { token } = res.data;
-                await AsyncStorage.setItem('user', token); */
+                await AsyncStorage.setItem('user', token); 
+                console.log(res.data.id)*/
 
-                console.log(res.data.id)
-                navigation.navigate('Routes', {
-                        actualUser: res.data.id
-                    })
-                }  
+                    navigation.navigate('Routes', 
+                        {
+                        screen: 'Room',
+                        params: {
+                            userId: res.data
+                        }
+                        })
+                    }
+                    navigation.navigate('Routes', 
+                        {
+                        screen: 'Profile',
+                        params: {
+                            userId: res.data
+                        }
+                        })
+
     }
 
         return (

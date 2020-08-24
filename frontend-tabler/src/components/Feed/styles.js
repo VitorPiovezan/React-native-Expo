@@ -28,7 +28,7 @@ export const Image = styled.Image`
 export const Nome = styled.Text`
     font-weight: bold;
     color: #fff;
-    font-size: 22;
+    font-size: 22px;
     padding: 3px 0px 5px 10px;
 `
 
@@ -57,14 +57,14 @@ export const IconMath = styled.Image`
 `
 export const InfoProfile = styled.Text`
     color: #fff;
-    font-size: 16;
+    font-size: 16px;
     padding: 3px 0px 5px 10px;
 `
 export const Info = styled.View`
 `
 export const TextExemple = styled.Text`
     font-weight: bold;
-    font-size: 24;
+    font-size: 24px;
     color: white;
 `
 
@@ -74,7 +74,7 @@ export const InputChat = styled.TextInput`
     border-radius: 7px;
     background-color: #fff;
     padding: 15px;
-    font-size: 16;
+    font-size: 16px;
     position: absolute;
     bottom: 10;
     
@@ -175,7 +175,7 @@ export const ImgUser = styled.Image`
 `
 export const NameUser = styled.Text`
     font-weight: bold;
-    font-size: 12;
+    font-size: 12px;
 `
 
 export const UserMathButton = styled.TouchableOpacity`
@@ -193,12 +193,12 @@ export const ViewGames = styled.View`
 `
 export const TextGames = styled.Text`
     font-weight: bold;
-    font-size: 20;
+    font-size: 20px;
     padding: 20px 0px 0px 12px;
 `
 export const TextMessages = styled.Text`
     font-weight: bold;
-    font-size: 20;
+    font-size: 20px;
     padding: 0px 0px 10px 12px;
 `
 export const ViewChatsUsers = styled.View`
@@ -229,11 +229,11 @@ export const TextBoxChatUser = styled.View`
 export const TextBoxChatUserName = styled.Text`
     padding: 10px 0 0 10px;
     font-weight: bold;
-    font-size: 20;
+    font-size: 20px;
 `
 export const TextBoxChatUserLastMassage = styled.Text`
     padding: 3px 0 10px 10px;
-    font-size: 16;
+    font-size: 16px;
 `
 export const ButtonChatUser = styled.TouchableOpacity`
     width: 100%;
@@ -254,7 +254,7 @@ export const ViewHeaderHome = styled.View`
 `;
 export const TextBoxNameProfile = styled.Text`
     color: #DDBC91;
-    font-size: 20;
+    font-size: 20px;
 `;
 
 export const ViewTextProfile = styled.View`
@@ -269,7 +269,7 @@ export const ImgHomeConfig = styled.Image`
 `;
 
 export const TitleHome = styled.Text`
-    font-size: 28;
+    font-size: 28px;
     text-align: center;
     padding: 20px;
     font-weight: bold;
@@ -305,11 +305,11 @@ export const TitleRoom = styled.Text`
     padding-bottom: 5px;
     font-weight: bold;
     color: #B94A00;
-    font-size: 20;
+    font-size: 20px;
 `;
 
 export const PlayersRoom = styled.Text`
-    font-size: 16;
+    font-size: 16px;
     font-weight: bold;
 `;
 
@@ -345,7 +345,7 @@ export const ImgSearchConfig = styled.Image`
 
 export const TextPesq = styled.Text`
     text-align: center;
-    font-size: 16;
+    font-size: 16px;
     font-weight: bold;    
     color: #684d00;
 
@@ -397,5 +397,5 @@ export const ViewSearch = styled.View`
 export const TextSearch = styled.Text`
     font-weight: bold;
     color: #684d00;
-    font-size: 15;
+    font-size: 15px;
 `;

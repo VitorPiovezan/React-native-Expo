@@ -9,6 +9,7 @@ import Profile from '../Profile/profile';
 const Tab = createMaterialTopTabNavigator();
 
 export default function HomeTab() {
+  
   return (
       <Tab.Navigator  tabBarOptions={{
                         inactiveTintColor: '#99785D',
@@ -20,8 +21,8 @@ export default function HomeTab() {
                           backgroundColor: '#DDBC91'
                         }
                       }}
-                      initialRouteName="Rooms">
-      <Tab.Screen name="Rooms" component={Feed} />
+                      initialRouteName="Room">
+      <Tab.Screen name="Room" component={Feed} />
         <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
   );
