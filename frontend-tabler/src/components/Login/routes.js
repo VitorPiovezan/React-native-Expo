@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from './login';
 import Signup from '../Signup/signup';
-import Tab from '../Home/routes';
+import HomeTab from '../Home/routes';
 import Config from '../Config/config';
 import Preview from '../Room/preview'
 
@@ -24,7 +24,7 @@ export default function App() {
                         initialRouteName="Login">
         <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="Signup" component={Signup} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
-        <Stack.Screen name="Routes" component={Tab}/>
+        <Stack.Screen name="Routes" component={HomeTab}/>
         <Stack.Screen name="Config" component={Config} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
         <Stack.Screen name="Preview" component={Preview} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
       </Stack.Navigator>

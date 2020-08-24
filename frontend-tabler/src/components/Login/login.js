@@ -38,6 +38,7 @@ export default function Login({navigation}) {
                         SENHA_USUAR: password,
                     });
 
+        console.log(res.data.jaExiste)
         if (nickname === '' || password === '') {
                 Alert.alert("Tabler", 'Faltou algum campo ae irmão!');
 
@@ -46,27 +47,10 @@ export default function Login({navigation}) {
 
         } else {
                 const loggedUser = res.data;
-                /*console.log(loggedUser);
-                console.log('Esse de cima é o usuário')
-                const { token } = res.data;
-                await AsyncStorage.setItem('user', token); 
-                console.log(res.data.id)*/
 
-                    navigation.navigate('Routes', 
-                        {
-                        screen: 'Room',
-                        params: {
+                    navigation.navigate('Routes', {
                             userId: res.data
-                        }
-                        })
-                    }
-                    navigation.navigate('Routes', 
-                        {
-                        screen: 'Profile',
-                        params: {
-                            userId: res.data
-                        }
-                        })
+                        }) }
 
     }
 

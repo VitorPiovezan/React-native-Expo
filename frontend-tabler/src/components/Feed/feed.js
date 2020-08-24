@@ -16,11 +16,12 @@ import {
 import api from '../../api/api';
 import ListItems from './feed_view';
 import { ScrollView } from 'react-native-gesture-handler';
-import { StyleSheet, ImageBackground, TouchableWithoutFeedbackBase, } from 'react-native';
+import { StyleSheet, ImageBackground } from 'react-native';
 
 export default function Feed({route, navigation}) {
 
-    const user = (route.params.userId)
+    const userId = (route.params.userId.id)
+
     const styles = StyleSheet.create({
         backgroundImage: {
             flex: 1,
@@ -94,7 +95,8 @@ export default function Feed({route, navigation}) {
     const handlePressJoinRoom = (RoomID) => {
         //Aqui vou passar os parametros para a Pre-view da sala 
         navigation.navigate('Preview', {
-            roomID: RoomID
+            roomID: RoomID,
+            userId: userId
         })
         /* console.log(RoomID) */
     }

@@ -6,6 +6,11 @@ export const ContainerRoom = styled.View`
     align-items: center;
 `;
 
+export const ContainerScroll = styled.View`
+    justify-content: center;
+    align-items: center;
+`;
+
 export const B = styled.Text`
     font-weight: bold;
 `;

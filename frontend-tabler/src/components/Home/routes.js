@@ -8,8 +8,8 @@ import Profile from '../Profile/profile';
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function HomeTab() {
-  
+export default function HomeTab({navitagion, route}) {
+  const user = route.params.userId
   return (
       <Tab.Navigator  tabBarOptions={{
                         inactiveTintColor: '#99785D',
@@ -22,8 +22,9 @@ export default function HomeTab() {
                         }
                       }}
                       initialRouteName="Room">
-      <Tab.Screen name="Room" component={Feed} />
-        <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Screen name="Room" component={Feed} initialParams={{ userId: user }}/>
+        <Tab.Screen name="Home" component={Home} initialParams={{ userId: user }}/>
+        <Tab.Screen name="Profile" component={Profile} initialParams={{ userId: user }}/>
       </Tab.Navigator>
   );
 }

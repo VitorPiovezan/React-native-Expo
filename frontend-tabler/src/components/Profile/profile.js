@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
     ContainerProfile,
     ImgProfileConfig, 
@@ -14,10 +14,10 @@ import {
     TextBoxRodape,
     ViewContRodape
 } from "./styles";
-import { ImageBackground, StyleSheet, Text, Linking, ScrollView} from 'react-native';
+import { ImageBackground, StyleSheet, Linking, ScrollView} from 'react-native';
 
 export default function Profile({navigation, route}){  
- 
+
     const user = (route.params.userId)
     const styles = StyleSheet.create({
         backgroundImage: {
@@ -44,8 +44,7 @@ export default function Profile({navigation, route}){
                 </ViewConfig>
 
                 <ViewConfigList>
-                    <ButtonConfigList><TextConfigList onPress={() => navigation.navigate('Config')}>Sua Ficha </TextConfigList></ButtonConfigList>
-                    <ButtonConfigList><TextConfigList onPress={() => navigation.navigate('Config')}>Editar Perfil </TextConfigList></ButtonConfigList>
+                    <ButtonConfigList><TextConfigList onPress={() => navigation.navigate('Config', {userEdit: user})}>Editar Perfil </TextConfigList></ButtonConfigList>
                     <ButtonConfigList><TextConfigList onPress={() => Linking.openURL('https://drive.google.com/drive/folders/1n4vZLAZGmUyUmJ3SP-zFtiYaf7H9MaUG')} >Manual do Jogador</TextConfigList></ButtonConfigList>
                 </ViewConfigList>
 

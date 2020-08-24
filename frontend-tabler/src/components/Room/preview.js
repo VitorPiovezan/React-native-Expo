@@ -27,7 +27,8 @@ import {
     TitleView,
     ViewJoin,
     ButtomJoin,
-    TextJoin
+    TextJoin,
+    ContainerScroll
 } from './styles';
 
 import api from '../../api/api'
@@ -35,7 +36,9 @@ import { StyleSheet, ImageBackground, ScrollView } from 'react-native';
 
 export default function Preview({navigation, route}) {
 
-    const idSala  = route.params.roomID  
+    const idSala  = route.params.roomID
+    const userId = route.params.userId  
+    console.log(userId)
     const [rooms, setRooms] = useState([])
 
     const styles = StyleSheet.create({
@@ -61,8 +64,11 @@ export default function Preview({navigation, route}) {
 
     useEffect(() => {
         async function getIdRoom() {
-                const res = await api.get(`roomData/${idSala}`)
+                const res = await api.post(`roomData`, {
+                    ID_MESA: `${idSala}`
+                })
                 setRooms(res.data)
+                console.log(res.data)
                 /* console.log(res.data) */
         }
         
@@ -87,7 +93,7 @@ export default function Preview({navigation, route}) {
                     </HeaderRoom>
 
                     <ScrollView style={styles.scrollView}>
-                    <ContainerRoom>
+                    <ContainerScroll>
 
                     <DetailsRPG>
                         <TitleRPG> Dangeons and Dragons v5.0 </TitleRPG>
@@ -167,7 +173,7 @@ export default function Preview({navigation, route}) {
                                 </PlayersAtivos>
                     </Players>
                 
-                </ContainerRoom>
+                </ContainerScroll>
                 </ScrollView>
             </ImageBackground>
         </ContainerRoom>
