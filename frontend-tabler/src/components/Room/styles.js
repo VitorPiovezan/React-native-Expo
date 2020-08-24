@@ -44,6 +44,30 @@ export const TextDetails = styled.Text`
     color: #5E3200;
 `;
 
+export const SDetailsMestre = styled.View`
+    width: 85%;
+    height: 80px;
+    flex-direction: row;
+    align-items: center;
+    justify-content:center;
+    border-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #777;
+`;
+
+
+export const SDados = styled.View`
+    align-items: center;
+    justify-content:center;
+`;
+
+export const STextDetails = styled.Text`
+    padding: 5px;
+    font-size: 20px;
+    color: #5E3200;
+`;
+
+
 //Header -------------------------------------------------
 
 

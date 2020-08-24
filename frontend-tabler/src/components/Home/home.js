@@ -11,6 +11,7 @@ import { StyleSheet, ImageBackground } from 'react-native';
 export default function Home({ navigation, route }) {
 
     const user = (route.params.userId)
+    console.log(user)
     const styles = StyleSheet.create({
         backgroundImage: {
             flex: 1,

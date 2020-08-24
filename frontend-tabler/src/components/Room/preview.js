@@ -28,7 +28,10 @@ import {
     ViewJoin,
     ButtomJoin,
     TextJoin,
-    ContainerScroll
+    ContainerScroll,
+    SDetailsMestre,
+    SDados,
+    STextDetails
 } from './styles';
 
 import api from '../../api/api'
@@ -37,9 +40,20 @@ import { StyleSheet, ImageBackground, ScrollView } from 'react-native';
 export default function Preview({navigation, route}) {
 
     const idSala  = route.params.roomID
-    const userId = route.params.userId  
-    console.log(userId)
-    const [rooms, setRooms] = useState([])
+    const userId = route.params.userId 
+    const [rooms, setRooms] = useState('')
+
+    useEffect(() => {
+        api.post('roomData', {
+            ID_MESA: `${idSala}`
+        })
+            .then((res) => {
+                console.log(res.data)
+                setRooms(res.data)
+                console.log(rooms)
+            })
+
+    }, [idSala])
 
     const styles = StyleSheet.create({
         backgroundImage: {
@@ -62,19 +76,24 @@ export default function Preview({navigation, route}) {
         }
     });
 
-    useEffect(() => {
-        async function getIdRoom() {
-                const res = await api.post(`roomData`, {
-                    ID_MESA: `${idSala}`
-                })
-                setRooms(res.data)
-                console.log(res.data)
-                /* console.log(res.data) */
+    function MestreStatus() {
+        if(rooms.dungeonMaster === 'NO_DM'){
+            return <SDetailsMestre>
+                        <SDados>
+                            <STextDetails><B>Procurando Mestre...</B></STextDetails>
+                            <STextDetails><B>Pode Ajudar?</B></STextDetails>
+                        </SDados>
+                    </SDetailsMestre>
+        } else {
+            return <DetailsMestre>
+                        <Avatar source={require('../../assets/images/puts.png')} />
+                        <Dados>
+                            <TextDetails><B>Mestre:</B> {rooms.dungeonMaster} </TextDetails>
+                            <TextDetails><B>Quant. de mesas:</B> {rooms.tablesJoined} </TextDetails>
+                        </Dados>
+                    </DetailsMestre>
         }
-        
-        getIdRoom()
-
-    }, [idSala])
+    }
 
     return (
         <ContainerRoom>
@@ -83,7 +102,7 @@ export default function Preview({navigation, route}) {
                         <BottomBack onPress={() => navigation.navigate('Routes')}>
                             <IconBack source={require('../../assets/icons/voltar.png')}/>
                         </BottomBack>
-                        <TituloMesa> {rooms.title} </TituloMesa>
+                        <TituloMesa> {rooms.dungeonMaster} </TituloMesa>
 
                         <ViewJoin>
                             <ButtomJoin>
@@ -107,15 +126,8 @@ export default function Preview({navigation, route}) {
                                 <DetailsText><B>Nivel de Experiência:</B> Veterano</DetailsText>
                             </DetailsRoomText>
                     </DetailsRoom>
-
-                    <DetailsMestre>
-                        <Avatar source={require('../../assets/images/puts.png')} />
-                        <Dados>
-                            <TextDetails><B>Mestre:</B> {rooms.admMesa} </TextDetails>
-                            <TextDetails><B>Quant. de mesas:</B> {rooms.qtdeJog} </TextDetails>
-                        </Dados>
-                    </DetailsMestre>
-
+                
+                    <MestreStatus/>
                     <Players>
                         <TitleView><TitlePlayers>Jogadores</TitlePlayers></TitleView>
                                 <PlayersAtivos>
