@@ -18,7 +18,7 @@ import api from '../../api/api';
 
 import { ImageBackground, StyleSheet, Alert, ScrollView } from 'react-native';
 
-export default function Config({navigation, route}) {
+export default function EditProfile({navigation, route}) {
 
   const user = (route.params.userEdit)
 
@@ -53,6 +53,23 @@ export default function Config({navigation, route}) {
         Alert.alert("Tabler", 'Nada Foi alterado');
         console.log('Nada Foi alterado')
 
+    }else if (nickname !== user.apelido) {
+      const res = await api.put('updateProfile', 
+        {
+            NOME_USUAR: `${name}`,
+            APELIDO_USUAR: `${nickname}`,
+            EMAIL_USUAR: `${email}`,
+            AVATAR_USUAR: `${user.avatarpath}`,
+            ID_USUAR: `${user.id}`,
+        })
+        if (res.status === 200){
+          Alert.alert("Tabler", 'Alterado com sucesso, Faça o login novamente para validação');
+          console.log('Alterado com sucesso')
+          navigation.navigate('Login')
+        } else {
+          Alert.alert("Tabler", 'Deu Pau Irmão')
+          console.log('Deu Pau Irmão')
+        }
     }else{
       const res = await api.put('updateProfile', 
         {
@@ -65,13 +82,12 @@ export default function Config({navigation, route}) {
         if (res.status === 200){
           Alert.alert("Tabler", 'Alterado com sucesso');
           console.log('Alterado com sucesso')
-          navigation.navigate('Routes', 
-                        {
-                        screen: 'Profile',
-                        params: {
-                            userId: res.data
-                        }
-                        })
+          navigation.navigate('Routes', {
+            screen: 'Profile',
+            params: {
+              userId: res.data
+            }
+          })
         } else {
           Alert.alert("Tabler", 'Deu Pau Irmão')
           console.log('Deu Pau Irmão')

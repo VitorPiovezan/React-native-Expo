@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './login';
 import Signup from '../Signup/signup';
 import HomeTab from '../Home/routes';
-import Config from '../Config/config';
+import EditProfile from '../EditProfile/editprofile';
 import Preview from '../Room/preview'
 
 const Stack = createStackNavigator();
@@ -25,7 +25,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="Signup" component={Signup} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
         <Stack.Screen name="Routes" component={HomeTab}/>
-        <Stack.Screen name="Config" component={Config} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
+        <Stack.Screen name="Config" component={EditProfile} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
         <Stack.Screen name="Preview" component={Preview} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
       </Stack.Navigator>
     </NavigationContainer>

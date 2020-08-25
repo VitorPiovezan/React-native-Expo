@@ -85,3 +85,52 @@ export const ViewContRodape = styled.View`
     width: 100%;
     padding: 30px;
 `;
+
+// Modal Sair
+
+export const ViewButton = styled.TouchableHighlight`
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: #120900;
+    opacity: 0.8;
+`;
+
+export const ViewModal = styled.View`
+    width: 70%;
+    padding: 20px;
+    background-color: #D9BA8E;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20;
+`;
+
+export const TitleModal = styled.Text`
+    font-size: 18px;
+    padding: 15px 15px 25px 15px;
+    color: #120900;
+`;
+
+export const ButtonView = styled.View`
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0px 0px 15px 0px;
+`;
+
+export const ButtonQuest = styled.TouchableOpacity`
+    padding: 15px;
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+    border-width: 1px;
+    border-color: #5E3200;
+    background-color: #DAC69A;
+    border-radius: 15;
+`;
+
+export const TextButtonSair = styled.Text`
+    font-size: 16px;
+`;

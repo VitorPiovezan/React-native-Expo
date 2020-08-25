@@ -20,7 +20,7 @@ import { StyleSheet, ImageBackground } from 'react-native';
 
 export default function Feed({route, navigation}) {
 
-    const userId = (route.params.userId.id)
+    const user = (route.params.userId)
 
     const styles = StyleSheet.create({
         backgroundImage: {
@@ -96,7 +96,7 @@ export default function Feed({route, navigation}) {
         //Aqui vou passar os parametros para a Pre-view da sala 
         navigation.navigate('Preview', {
             roomID: RoomID,
-            userId: userId
+            userId: user
         })
         /* console.log(RoomID) */
     }
@@ -113,7 +113,7 @@ export default function Feed({route, navigation}) {
                 title={item.title}
                 qtdeJog={item.qtdeJog}
                 admMesa={item.admMesa}
-                handlePressJoin={() => handlePressJoinRoom(item.id)}
+                handlePressJoin={() => handlePressJoinRoom(item)}
             />
         })
     }

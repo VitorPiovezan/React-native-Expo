@@ -1,9 +1,9 @@
-import React from 'react';
-import { 
+import React, { useState } from 'react';
+import {
     ContainerProfile,
-    ImgProfileConfig, 
-    TextNameUser, 
-    ViewConfig, 
+    ImgProfileConfig,
+    TextNameUser,
+    ViewConfig,
     TextConfig,
     ViewConfigList,
     TextConfigList,
@@ -12,11 +12,19 @@ import {
     IconLogout,
     ViewSair,
     TextBoxRodape,
-    ViewContRodape
+    ViewContRodape,
+    ViewButton,
+    ViewModal,
+    TitleModal,
+    ButtonView,
+    ButtonQuest,
+    TextButtonSair
 } from "./styles";
-import { ImageBackground, StyleSheet, Linking, ScrollView} from 'react-native';
+import { ImageBackground, StyleSheet, Linking, ScrollView, Modal } from 'react-native';
 
-export default function Profile({navigation, route}){  
+export default function Profile({ navigation, route }) {
+
+    const [modalVisible, setModalVisible] = useState(false);
 
     const user = (route.params.userId)
     const styles = StyleSheet.create({
@@ -24,45 +32,73 @@ export default function Profile({navigation, route}){
             height: '100%',
             width: '100%',
             alignItems: 'center',
-      },
+        },
         scrollView: {
             width: '100%',
         }
-      });
+    });
 
-        return( 
-       <ContainerProfile>
-           <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage}>
+    return (
+        <ContainerProfile>
+            <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage}>
+
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                    }}>
+                    <ViewButton onPress={() => { setModalVisible(!modalVisible); }}>
+                        <ViewModal>
+                            <TitleModal>Deseja Realmente Sair?</TitleModal>
+
+                            <ButtonView>
+                                <ButtonQuest onPress={() => {
+                                    navigation.navigate('Login');
+                                    setModalVisible(!modalVisible);
+                                }}>
+                                    <TextButtonSair>Sair</TextButtonSair>
+                                </ButtonQuest>
+                                <ButtonQuest onPress={() => { setModalVisible(!modalVisible); }}>
+                                    <TextButtonSair>Cancelar</TextButtonSair>
+                                </ButtonQuest>
+                            </ButtonView>
+                            
+                        </ViewModal>
+                    </ViewButton>
+                </Modal>
+
                 <ScrollView style={styles.scrollView}>
-                <ContainerProfile>
-                    
-                <ImgProfileConfig source={require('../../assets/images/sputinikV.jpg')}/>
-                    <TextNameUser>{user.apelido}</TextNameUser>
-    
-                <ViewConfig>
-                    <TextConfig>Configurações</TextConfig>
-                </ViewConfig>
+                    <ContainerProfile>
 
-                <ViewConfigList>
-                    <ButtonConfigList><TextConfigList onPress={() => navigation.navigate('Config', {userEdit: user})}>Editar Perfil </TextConfigList></ButtonConfigList>
-                    <ButtonConfigList><TextConfigList onPress={() => Linking.openURL('https://drive.google.com/drive/folders/1n4vZLAZGmUyUmJ3SP-zFtiYaf7H9MaUG')} >Manual do Jogador</TextConfigList></ButtonConfigList>
-                </ViewConfigList>
+                        <ImgProfileConfig source={require('../../assets/images/sputinikV.jpg')} />
+                        <TextNameUser>{user.apelido}</TextNameUser>
 
-                <ViewContRodape>
-                        <TextBoxRodape>Feito com ♡ por Cubisme Design Team</TextBoxRodape>
-                        <TextBoxRodape>Version: 0.30</TextBoxRodape>
-                </ViewContRodape>
+                        <ViewConfig>
+                            <TextConfig>Configurações</TextConfig>
+                        </ViewConfig>
 
-                <ViewSair>
-                    <ButtonOut  onPress={() => navigation.navigate('Login') } >
-                        <IconLogout source={require('../../assets/icons/logout.png')}/>
-                    </ButtonOut>
-                </ViewSair>
+                        <ViewConfigList>
+                            <ButtonConfigList><TextConfigList onPress={() => navigation.navigate('Config', { userEdit: user })}>Editar Perfil </TextConfigList></ButtonConfigList>
+                            <ButtonConfigList><TextConfigList onPress={() => Linking.openURL('https://drive.google.com/drive/folders/1n4vZLAZGmUyUmJ3SP-zFtiYaf7H9MaUG')} >Manual do Jogador</TextConfigList></ButtonConfigList>
+                        </ViewConfigList>
 
-                </ContainerProfile> 
-                </ScrollView>   
-           </ImageBackground>                                 
-       </ContainerProfile> 
-  
-  )  
+                        <ViewContRodape>
+                            <TextBoxRodape>Feito com ♡ por Cubisme Design Team</TextBoxRodape>
+                            <TextBoxRodape>Version: 0.40</TextBoxRodape>
+                        </ViewContRodape>
+
+                        <ViewSair>
+                            <ButtonOut onPress={() => { setModalVisible(true); }} >
+                                <IconLogout source={require('../../assets/icons/logout.png')} />
+                            </ButtonOut>
+                        </ViewSair>
+
+                    </ContainerProfile>
+                </ScrollView>
+            </ImageBackground>
+        </ContainerProfile>
+
+    )
 }  

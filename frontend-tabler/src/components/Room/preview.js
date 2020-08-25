@@ -34,6 +34,7 @@ import {
     STextDetails
 } from './styles';
 
+import ListItems from './playersroom';
 import api from '../../api/api'
 import { StyleSheet, ImageBackground, ScrollView } from 'react-native';
 
@@ -42,18 +43,21 @@ export default function Preview({navigation, route}) {
     const idSala  = route.params.roomID
     const userId = route.params.userId 
     const [rooms, setRooms] = useState('')
+    const [players, setPlayers] = useState([])
+
+    
 
     useEffect(() => {
         api.post('roomData', {
-            ID_MESA: `${idSala}`
+            ID_MESA: `${idSala.id}`
         })
             .then((res) => {
                 console.log(res.data)
                 setRooms(res.data)
-                console.log(rooms)
+                setPlayers(res.data.players)
             })
 
-    }, [idSala])
+    }, [idSala.id, idSala.nome, idSala.apelido])
 
     const styles = StyleSheet.create({
         backgroundImage: {
@@ -94,6 +98,19 @@ export default function Preview({navigation, route}) {
                     </DetailsMestre>
         }
     }
+    
+
+        let listaDeItens = null
+        if (players !== null) {
+        listaDeItens = players.map(item => {
+            return <ListItems
+                key={item.playerName}
+                playerName={item.playerName}
+                playerChar={item.playerChar}
+                playerClass={item.playerClass}
+            />
+        })
+        }
 
     return (
         <ContainerRoom>
@@ -102,7 +119,7 @@ export default function Preview({navigation, route}) {
                         <BottomBack onPress={() => navigation.navigate('Routes')}>
                             <IconBack source={require('../../assets/icons/voltar.png')}/>
                         </BottomBack>
-                        <TituloMesa> {rooms.dungeonMaster} </TituloMesa>
+                        <TituloMesa> {idSala.title} </TituloMesa>
 
                         <ViewJoin>
                             <ButtomJoin>
@@ -130,6 +147,11 @@ export default function Preview({navigation, route}) {
                     <MestreStatus/>
                     <Players>
                         <TitleView><TitlePlayers>Jogadores</TitlePlayers></TitleView>
+
+                                {listaDeItens}
+                                
+                                {/* 
+
                                 <PlayersAtivos>
                                     <AvatarPlayer source={require('../../assets/images/perfilIcon.jpg')}/>
                                     <DetailsPlayers>
@@ -182,7 +204,7 @@ export default function Preview({navigation, route}) {
                                         <DetailsPlayersText><B>Char:</B> Arom</DetailsPlayersText>
                                         <DetailsPlayersText><B>Classe:</B> Druida</DetailsPlayersText>
                                     </DetailsPlayers>
-                                </PlayersAtivos>
+                                </PlayersAtivos> */}
                     </Players>
                 
                 </ContainerScroll>
