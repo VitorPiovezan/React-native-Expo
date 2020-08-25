@@ -212,3 +212,79 @@ export const TitleView = styled.View`
     width: 100%;
     align-items: center;
 `;
+
+//Modal
+
+export const ViewButton = styled.TouchableHighlight`
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: #120900;
+    opacity: 0.8;
+`;
+
+export const ViewModal = styled.TouchableOpacity`
+    width: 70%;
+    padding: 20px;
+    background-color: #D9BA8E;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20;
+`;
+
+export const TitleModal = styled.Text`
+    font-size: 18px;
+    padding: 15px 15px 25px 15px;
+    color: #5E3200;
+`;
+
+export const ViewRadio = styled.View`
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+`;
+
+//Modal Jogador
+
+export const ViewPlayerRequest = styled.View`
+    width: 100%;
+    align-items: center;
+`;
+
+export const ViewImputsPlayerRequest = styled.View`
+    width: 100%;
+    padding: 5px 0px 5px 0px;
+    justify-content: center;
+`;
+
+export const TextPlayerRequest = styled.Text`
+    font-weight: bold;
+    padding: 5px 0px 5px 0px;
+    font-size: 16px;
+    color: #5E3200;
+`;
+
+export const InputPlayerRequest = styled.TextInput`
+    color: #684D00;
+    background-color: #fff2d9;
+    padding: 5px;
+    width: 100%;
+    border-radius: 4px;
+`;
+
+export const ButtonJoinRoom = styled.TouchableOpacity`
+    background-color: #fff2d9;
+    padding: 15px;
+    width: 50%;
+    margin-top: 15px;
+    border-radius: 4px;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const TextModalPlayer = styled.Text`
+    font-weight: bold;
+    font-size: 16px;
+    color: #5E3200;
+`;

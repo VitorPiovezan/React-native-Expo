@@ -18,7 +18,7 @@ const ListItems = (props) => {
     return (
 
             <PlayersAtivos>
-                <AvatarPlayer source={require('../../assets/images/blue.png')}/>
+                <AvatarPlayer source={require('../../assets/images/tpouse.jpg')}/>
                 <DetailsPlayers>
                     <DetailsPlayersText><B>Player:</B> {props.playerName}</DetailsPlayersText>
                     <DetailsPlayersText><B>Char:</B> {props.playerChar}</DetailsPlayersText>

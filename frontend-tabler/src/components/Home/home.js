@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 
 import {
     ContainerHome,
-    ContainerScroll
+    ContainerScroll,
+    CreateRoomButton,
+    CreateRoomIcon,
+    CreateRoomText,
+    ViewYoursRooms,
+    TitleYoursRooms
 } from './styles';
 
 import { ScrollView } from 'react-native-gesture-handler';
@@ -27,6 +32,9 @@ export default function Home({ navigation, route }) {
         },
         body: {
             backgroundColor: '#D9BA8E'
+        },
+        scrollView: {
+            width: '100%',
         }
     });
 
@@ -36,7 +44,16 @@ export default function Home({ navigation, route }) {
                 <ScrollView style={styles.scrollView}>
                     <ContainerScroll>
 
-                        
+                        <CreateRoomButton>
+                            <CreateRoomIcon source={require('../../assets/icons/createroom.png')} />
+                            <CreateRoomText>Criar Sala</CreateRoomText>
+                        </CreateRoomButton>
+
+                        <ViewYoursRooms>
+                            <TitleYoursRooms>Participando</TitleYoursRooms>
+
+
+                        </ViewYoursRooms>
 
                     </ContainerScroll>
                 </ScrollView>

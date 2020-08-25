@@ -98,6 +98,7 @@ export default function EditProfile({navigation, route}) {
   return (
     <ContainerConfig>
       <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage} >
+        
         <HeaderConfig>
           <BottomBack onPress={() => navigation.navigate('Routes')}>
             <IconBack source={require('../../assets/icons/voltar.png')}/>
