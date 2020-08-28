@@ -64,11 +64,14 @@ export const TextSave = styled.Text`
 
 //Edit
 
+export const ViewJogarComo = styled.View`
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+`;
+
 export const ViewEdit = styled.View`
     width: 85%;
-    border-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: #5e3200;
     padding: 5px 0px 5px 0px;
     justify-content: center;
 `;
@@ -82,7 +85,6 @@ export const TextEdit = styled.Text`
 
 export const InputEdit = styled.TextInput`
     color: #684D00;
-    margin-bottom: 10px;
     background-color: #fff2d9;
     padding: 5px;
     width: 100%;

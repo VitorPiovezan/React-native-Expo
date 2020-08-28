@@ -44,7 +44,7 @@ export default function Home({ navigation, route }) {
                 <ScrollView style={styles.scrollView}>
                     <ContainerScroll>
 
-                        <CreateRoomButton>
+                        <CreateRoomButton onPress={() => navigation.navigate('CreateRoom', {userId: user})}>
                             <CreateRoomIcon source={require('../../assets/icons/createroom.png')} />
                             <CreateRoomText>Criar Sala</CreateRoomText>
                         </CreateRoomButton>

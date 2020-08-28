@@ -101,8 +101,6 @@ export default function Feed({route, navigation}) {
         /* console.log(RoomID) */
     }
 
-
-
     //Apartir daqui é a renderização em tela.
     let listaDeItens = null
 

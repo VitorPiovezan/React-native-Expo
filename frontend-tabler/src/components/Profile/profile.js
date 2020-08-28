@@ -61,7 +61,7 @@ export default function Profile({ navigation, route }) {
                                     <TextButtonSair>Sair</TextButtonSair>
                                 </ButtonQuest>
                                 <ButtonQuest onPress={() => { setModalVisible(!modalVisible); }}>
-                                    <TextButtonSair>Cancelar</TextButtonSair>
+                                    <TextButtonSair>Voltar</TextButtonSair>
                                 </ButtonQuest>
                             </ButtonView>
                             
