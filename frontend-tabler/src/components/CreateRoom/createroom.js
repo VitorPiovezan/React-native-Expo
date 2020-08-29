@@ -21,9 +21,8 @@ import {
     InputEdit
 } from '../EditProfile/styles'
 
-import { RadioButton } from 'react-native-paper'
 import { ScrollView } from 'react-native-gesture-handler';
-import { StyleSheet, ImageBackground, Picker } from 'react-native';
+import { StyleSheet, ImageBackground, Picker, Alert } from 'react-native';
 import api from '../../api/api'
 
 export default function CreateRoom({ navigation, route }) {
@@ -42,19 +41,16 @@ export default function CreateRoom({ navigation, route }) {
     const [dropdown, setDropdown] = useState([]);
     const [selectedValue, setSelectedValue] = useState('D&D 5E Adventures in Middle Earth');
     const [numberList, setNumberList] = useState('5');
-    const [nivelInicial, setNivelInicial] = useState('');
-    const [nivelExperiencia, setNivelExperiencia] = useState('Veterano');
+    const [nivelInicial, setNivelInicial] = useState('1');
+    const [nivelExperiencia, setNivelExperiencia] = useState('Júnior');
     const [checked, setChecked] = useState('player');
-    const [mestreJoga, setMestreJoga] = useState('');
-    const [nomeChar, setNomeChar] = useState('');
-    const [classeChar, setClasseChar] = useState('');
 
     useEffect(() => {
         api.get('roomFormat')
             .then((res) => {
                 setDropdown(res.data)
             })
-        console.log('passou no useEffect')
+        /* console.log('passou no useEffect') */
     }, [user.id]);
 
     const styles = StyleSheet.create({
@@ -102,33 +98,36 @@ export default function CreateRoom({ navigation, route }) {
         })
     }
 
-    function JogarComo(){
-        if(checked === 'player'){
-            return  <ViewJogarComo>
-                        <ViewEdit>
-                            <TextEdit>Nome Char</TextEdit>
-                            <InputEdit
-                                    autoCapitalize='none'
-                                    onChangeText={setNomeChar}
-                                    value={nomeChar}
-                                    placeholder="Digite o Nome do Char" />
-                        </ViewEdit>
-                        
-                        <ViewEdit>
-                            <TextEdit>Classe Char</TextEdit>
-                            <InputEdit
-                                    autoCapitalize='none'
-                                    onChangeText={setClasseChar}
-                                    value={classeChar}
-                                    placeholder="Digite a Classe do Char" />
-                        </ViewEdit> 
-                    </ViewJogarComo>
+    async function postCreateRoom() {
+        if(user.apelido === '' || title === '' || desc === '' || numberList === '' || selectedValue === '' || nivelInicial === '' || nivelExperiencia === '' ){
+            Alert.alert("Tabler", 'Faltou algum campo ae irmão!');
 
-
-        } else {
-            return <TextEdit>Voce entrará como Mestre</TextEdit>
-        }
+        }else {const res = await api.post('createRoom', {
+            ADM_MESA: `${user.apelido}`,
+            TITULO_MESA: `${title}`,
+            DESC_MESA: `${desc}`,
+            QTDEJOG_MESA: `${numberList}`,
+            FORMA_MESA: `${selectedValue}`,
+            STATUS_MESA: '0',
+            LVLINIC_MESA: `${nivelInicial}`,
+            EXPJOGO_MESA: `${nivelExperiencia}`
+        })
+        console.log(res)
+        Alert.alert("Tabler", 'Sala criada com sucesso! Entre e chame seus amigos!');
+        navigation.navigate('Routes')
     }
+    }
+
+/* 
+    admMesa := keyVal["ADM_MESA"]
+    tituloMesa := keyVal["TITULO_MESA"]
+    descMesa := keyVal["DESC_MESA"]
+    qtdejogMesa := keyVal["QTDEJOG_MESA"]
+    formaMesa := keyVal["FORMA_MESA"]
+    statusMesa := keyVal["STATUS_MESA"]
+    lvlinicMesa := keyVal["LVLINIC_MESA"]
+    expJogoMesa := keyVal["EXPJOGO_MESA"] 
+    */
 
     return (
         <ContainerHome>
@@ -143,7 +142,7 @@ export default function CreateRoom({ navigation, route }) {
                     <TituloMesa> Criar Sala </TituloMesa>
                 
                     <ViewConfig>
-                        <ButtomSave>
+                        <ButtomSave onPress={postCreateRoom}>
                         <TextSave>Criar</TextSave>
                         </ButtomSave>
                     </ViewConfig>
@@ -183,7 +182,7 @@ export default function CreateRoom({ navigation, route }) {
                     </ViewEdit>
 
                     <ViewEdit>
-                        <TextEdit>Qtd. Min. de Jogadores</TextEdit>
+                        <TextEdit>Qtd. Max. de Jogadores</TextEdit>
                         <ViewPiker>
                             <Picker
                                 onValueChange={(itemValue) => setNumberList(itemValue)}
@@ -220,7 +219,7 @@ export default function CreateRoom({ navigation, route }) {
                             </Picker>
                         </ViewPiker>
                     </ViewEdit>
-
+{/* 
                     <ViewEdit>
                         <TextEdit>Jogar como</TextEdit>
                         <RadioButton.Group onValueChange={value => setChecked(value)} value={checked}>
@@ -230,14 +229,12 @@ export default function CreateRoom({ navigation, route }) {
                                                         color="#5e3200"
                                                         uncheckedColor="#5e3200" />
                                     <RadioButton.Item   label="Mestre" 
-                                                        value="master"
+                                                        value="mestre"
                                                         color="#5e3200"
                                                         uncheckedColor="#5e3200"  />
                                 </ViewRadio>
                         </RadioButton.Group>
-                    </ViewEdit>
-
-                    <JogarComo/>
+                    </ViewEdit> */}
 
                     </ContainerScroll>
                 </ScrollView>

@@ -91,14 +91,7 @@ export default function Preview({navigation, route}) {
     });
 
     function MestreStatus() {
-        if(rooms.dungeonMaster === 'NO_DM'){
-            return <SDetailsMestre>
-                        <SDados>
-                            <STextDetails><B>Procurando Mestre...</B></STextDetails>
-                            <STextDetails><B>Pode Ajudar?</B></STextDetails>
-                        </SDados>
-                    </SDetailsMestre>
-        } else {
+        if(rooms.dungeonMaster !== 'NO_DM'){
             return <DetailsMestre>
                         <Avatar source={require('../../assets/images/puts.png')} />
                         <Dados>
@@ -106,6 +99,13 @@ export default function Preview({navigation, route}) {
                             <TextDetails><B>Quant. de mesas:</B> {rooms.tablesJoined} </TextDetails>
                         </Dados>
                     </DetailsMestre>
+        } else {
+            return <SDetailsMestre>
+                        <SDados>
+                            <STextDetails><B>Procurando Mestre...</B></STextDetails>
+                            <STextDetails><B>Pode Ajudar?</B></STextDetails>
+                        </SDados>
+                    </SDetailsMestre>
         }
     }
 
@@ -200,15 +200,15 @@ export default function Preview({navigation, route}) {
                     <ContainerScroll>
 
                     <DetailsRPG>
-                        <TitleRPG> Dangeons and Dragons v5.0 </TitleRPG>
+                        <TitleRPG> {idSala.formato} </TitleRPG>
                     </DetailsRPG>
 
                     <DetailsRoom>
                         <DetailsTitle>Requisições</DetailsTitle>
                             <DetailsRoomText>
-                                <DetailsText><B>Nivel Inicial do Char:</B> 1</DetailsText>
-                                <DetailsText><B>Máximo de Players:</B> 12</DetailsText>
-                                <DetailsText><B>Nivel de Experiência:</B> Veterano</DetailsText>
+                                <DetailsText><B>Nivel Inicial do Char:</B> {idSala.lvlInic}</DetailsText>
+                                <DetailsText><B>Máximo de Players:</B> {idSala.qtdeJog}</DetailsText>
+                                <DetailsText><B>Nivel de Experiência:</B> {idSala.expJogo}</DetailsText>
                             </DetailsRoomText>
                     </DetailsRoom>
                 
