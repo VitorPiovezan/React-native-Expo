@@ -43,6 +43,7 @@ export default function CreateRoom({ navigation, route }) {
     const [numberList, setNumberList] = useState('5');
     const [nivelInicial, setNivelInicial] = useState('1');
     const [nivelExperiencia, setNivelExperiencia] = useState('Júnior');
+    const [linkDisc, setLinkDisc] = useState('')
     const [checked, setChecked] = useState('player');
 
     useEffect(() => {
@@ -99,7 +100,7 @@ export default function CreateRoom({ navigation, route }) {
     }
 
     async function postCreateRoom() {
-        if(user.apelido === '' || title === '' || desc === '' || numberList === '' || selectedValue === '' || nivelInicial === '' || nivelExperiencia === '' ){
+        if(user.apelido === '' || title === '' || desc === '' || numberList === '' || selectedValue === '' || nivelInicial === '' || nivelExperiencia === '' || linkDisc === ''){
             Alert.alert("Tabler", 'Faltou algum campo ae irmão!');
 
         }else {const res = await api.post('createRoom', {
@@ -110,24 +111,17 @@ export default function CreateRoom({ navigation, route }) {
             FORMA_MESA: `${selectedValue}`,
             STATUS_MESA: '0',
             LVLINIC_MESA: `${nivelInicial}`,
-            EXPJOGO_MESA: `${nivelExperiencia}`
+            EXPJOGO_MESA: `${nivelExperiencia}`,
+            LINK_CHAT: `${linkDisc}`
         })
-        console.log(res)
+        console.log(res.data)
         Alert.alert("Tabler", 'Sala criada com sucesso! Entre e chame seus amigos!');
-        navigation.navigate('Routes')
+        navigation.navigate('Preview', {
+            roomID: res.data,
+            userId: user
+        })
     }
     }
-
-/* 
-    admMesa := keyVal["ADM_MESA"]
-    tituloMesa := keyVal["TITULO_MESA"]
-    descMesa := keyVal["DESC_MESA"]
-    qtdejogMesa := keyVal["QTDEJOG_MESA"]
-    formaMesa := keyVal["FORMA_MESA"]
-    statusMesa := keyVal["STATUS_MESA"]
-    lvlinicMesa := keyVal["LVLINIC_MESA"]
-    expJogoMesa := keyVal["EXPJOGO_MESA"] 
-    */
 
     return (
         <ContainerHome>
@@ -219,22 +213,15 @@ export default function CreateRoom({ navigation, route }) {
                             </Picker>
                         </ViewPiker>
                     </ViewEdit>
-{/* 
+
                     <ViewEdit>
-                        <TextEdit>Jogar como</TextEdit>
-                        <RadioButton.Group onValueChange={value => setChecked(value)} value={checked}>
-                                <ViewRadio>
-                                    <RadioButton.Item   label="Jogador" 
-                                                        value='player'
-                                                        color="#5e3200"
-                                                        uncheckedColor="#5e3200" />
-                                    <RadioButton.Item   label="Mestre" 
-                                                        value="mestre"
-                                                        color="#5e3200"
-                                                        uncheckedColor="#5e3200"  />
-                                </ViewRadio>
-                        </RadioButton.Group>
-                    </ViewEdit> */}
+                        <TextEdit>Link Voice Chat</TextEdit>
+                        <InputEdit
+                                autoCapitalize='none'
+                                onChangeText={setLinkDisc}
+                                value={linkDisc}
+                                placeholder="Convite Discord ou outra plataforma" />
+                    </ViewEdit>
 
                     </ContainerScroll>
                 </ScrollView>

@@ -107,7 +107,7 @@ export default function Feed({route, navigation}) {
     if (tables !== null) {
         listaDeItens = tables.map(item => {
             return <ListItems
-                key={item.apelido}
+                key={item.id}
                 title={item.title}
                 qtdeJog={item.qtdeJog}
                 admMesa={item.admMesa}

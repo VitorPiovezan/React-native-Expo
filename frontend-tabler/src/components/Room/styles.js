@@ -215,7 +215,7 @@ export const TitleView = styled.View`
 
 //Modal
 
-export const ViewButton = styled.TouchableHighlight`
+export const ViewButton = styled.View`
     width: 100%;
     height: 100%;
     align-items: center;
@@ -224,7 +224,7 @@ export const ViewButton = styled.TouchableHighlight`
     opacity: 0.8;
 `;
 
-export const ViewModal = styled.TouchableOpacity`
+export const ViewModal = styled.View`
     width: 70%;
     padding: 20px;
     background-color: #D9BA8E;
@@ -287,4 +287,13 @@ export const TextModalPlayer = styled.Text`
     font-weight: bold;
     font-size: 16px;
     color: #5E3200;
+`;
+
+export const BottomVoltar = styled.TouchableOpacity`
+    font-weight: bold;
+    font-size: 16px;
+    color: #5E3200;
+    position: absolute;
+    right: 0px;
+    top: 0px;
 `;

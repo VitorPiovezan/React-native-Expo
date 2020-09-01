@@ -36,30 +36,37 @@ import {
     TextPlayerRequest,
     InputPlayerRequest,
     ButtonJoinRoom,
-    TextModalPlayer
+    TextModalPlayer,
+    BottomVoltar
 } from './styles';
 
 import { RadioButton } from 'react-native-paper'
 import ListItems from './playersroom';
 import api from '../../api/api'
-import { StyleSheet, ImageBackground, ScrollView, Modal, Text} from 'react-native';
+import { StyleSheet, ImageBackground, ScrollView, Modal, Text, Alert} from 'react-native';
 
 export default function Preview({navigation, route}) {
 
-    const [checked, setChecked] = React.useState('player');
-    console.log(checked)
+    const [checked, setChecked] = useState('0');
+    const [cadastrado, setCadastrado] = useState('')
+    const [mestreJoga, setMestreJoga] = useState(0);
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalJoined, setModalJoined] = useState(false);
 
     const idSala  = route.params.roomID
     const userId = route.params.userId 
+
     const [rooms, setRooms] = useState('')
     const [players, setPlayers] = useState([])
+    const [playerChar, setPlayerChar] = useState('')
+    const [playerClass, setPlayerClass] = useState('')
 
     
 
-    useEffect(() => {
+    useEffect(() => {  //aqui faz o post para retornar os dados da mesa, caso cadastre um usuário ela roda novamente
         api.post('roomData', {
-            ID_MESA: `${idSala.id}`
+            ID_MESA: `${idSala.id}`,
+            ID_USUAR: `${userId.id}`
         })
             .then((res) => {
                 console.log(res.data)
@@ -67,7 +74,7 @@ export default function Preview({navigation, route}) {
                 setPlayers(res.data.players)
             })
 
-    }, [idSala.id, idSala.nome, idSala.apelido])
+    }, [cadastrado])
 
     const styles = StyleSheet.create({
         backgroundImage: {
@@ -90,7 +97,7 @@ export default function Preview({navigation, route}) {
         }
     });
 
-    function MestreStatus() {
+    function MestreStatus() {  //Essa função confere se existe mestre ou não
         if(rooms.dungeonMaster !== 'NO_DM'){
             return <DetailsMestre>
                         <Avatar source={require('../../assets/images/puts.png')} />
@@ -109,36 +116,80 @@ export default function Preview({navigation, route}) {
         }
     }
 
-    function ModalJoinRoom(){
-        if(checked === 'player'){
+    async function PostaIss() {   //Faz o post com os dados para o backend
+        const res = await api.post('joinRoom', 
+                    {
+                        ID_MESA: `${idSala.id}`,
+                        ID_USUAR: `${userId.id}`,
+                        MESTRE_JOGA: `${mestreJoga}`,
+                        NOMECHAR_JOGA: `${playerChar}`,
+                        CLASSECHAR_JOGA: `${playerClass}`,
+                        UserName: `${userId.apelido}`
+                    });
+                    console.log(res)
+                    if(res.data.jaExiste === 'mestre'){
+                        Alert.alert('Tabler','Já existe um mestre nesta mesa')
+                    }
+                    setCadastrado(res.data.jaExiste)
+                    setModalVisible(!modalVisible)
+    }
+
+    async function PostCharOrMaster() {  //Faz uma conferencia para ver se o jogador esta com o nome vazio
+        if(mestreJoga === 0){
+            if(playerChar === '' || playerClass === ''){
+                Alert.alert('Falto um campo ae irmão')
+            }else{
+                PostaIss();                    
+            }
+        }else{
+                PostaIss(); 
+        }
+        
+
+    }
+
+    function IfUserAdm(){   //confere se o usuário já está na mesa ou não
+        if(rooms.alreadyIn === 'yes'){
+            setModalJoined(true);
+        }else{
+            setModalVisible(true);
+        }
+    }
+
+    function ModalJoinRoom(){  //modal caso o usuário não esteja na mesa
+        if(checked === '0'){
             return  <ViewPlayerRequest>
 
                         <ViewImputsPlayerRequest>
                             <TextPlayerRequest>Nome Char</TextPlayerRequest>
                             <InputPlayerRequest
-                                    autoCapitalize='none'/* 
-                                    onChangeText={setName}
-                                    value={name} *//>
+                                    autoCapitalize='none'
+                                    onChangeText={setPlayerChar}
+                                    value={playerChar}
+                                    placeholder="Digite o nome do seu Char" />
                         </ViewImputsPlayerRequest>
 
                         <ViewImputsPlayerRequest>
                             <TextPlayerRequest>Classe Char</TextPlayerRequest>
                             <InputPlayerRequest
-                                    autoCapitalize='none'/* 
-                                    onChangeText={setName}
-                                    value={name} *//>
+                                    autoCapitalize='none' 
+                                    onChangeText={setPlayerClass}
+                                    value={playerClass} />
                         </ViewImputsPlayerRequest>
 
 
-                        <ButtonJoinRoom><TextModalPlayer>Solicitar</TextModalPlayer></ButtonJoinRoom>
+                        <ButtonJoinRoom onPress={PostCharOrMaster}><TextModalPlayer>Solicitar</TextModalPlayer></ButtonJoinRoom>
                     </ViewPlayerRequest>
         } else {
+            setMestreJoga(1);
             return  <ViewPlayerRequest>
-                        <ButtonJoinRoom><TextModalPlayer>Solicitar</TextModalPlayer></ButtonJoinRoom>
+                        <ButtonJoinRoom onPress={PostCharOrMaster}><TextModalPlayer>Solicitar</TextModalPlayer></ButtonJoinRoom>
                     </ViewPlayerRequest>
         }
     }
     
+
+    //Esse if roda os players que estão na mesa, se não tiver ele retorna que não existe
 
         let listaDeItens = null
         if (players !== null) {
@@ -155,23 +206,26 @@ export default function Preview({navigation, route}) {
     return (
         <ContainerRoom>
             <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage} >
-                    
+
+            {/*  Esse modal vai rodar se o usu não estiver na mesa    */}    
+
             <Modal
                     animationType="fade"
                     transparent={true}
                     visible={modalVisible}>
-                    <ViewButton onPress={() => { setModalVisible(!modalVisible); }}>
+                    <ViewButton>
                         <ViewModal>
+                            <BottomVoltar onPress={() => { setModalVisible(!modalVisible); }} ><TitleModal><B>X</B></TitleModal></BottomVoltar>
                             <TitleModal><B>Jogar como</B></TitleModal>
 
                             <RadioButton.Group onValueChange={value => setChecked(value)} value={checked}>
                                 <ViewRadio>
                                     <RadioButton.Item   label="Jogador" 
-                                                        value='player'
+                                                        value='0'
                                                         color="#5e3200"
                                                         uncheckedColor="#5e3200" />
                                     <RadioButton.Item   label="Mestre" 
-                                                        value="master"
+                                                        value='1'
                                                         color="#5e3200"
                                                         uncheckedColor="#5e3200"  />
                                 </ViewRadio>
@@ -179,6 +233,20 @@ export default function Preview({navigation, route}) {
 
                             <ModalJoinRoom/>
                             
+                        </ViewModal>
+                    </ViewButton>
+                </Modal>
+
+                {/* Esse modal abre se o usuário Já está na mesa */}
+
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={modalJoined}>
+                    <ViewButton>
+                        <ViewModal>
+                            <BottomVoltar onPress={() => { setModalJoined(!modalJoined); }} ><TitleModal><B>X</B></TitleModal></BottomVoltar>
+                            <TitleModal><B>Vou fazer rota para ir para mesa</B></TitleModal>                            
                         </ViewModal>
                     </ViewButton>
                 </Modal>
@@ -190,7 +258,7 @@ export default function Preview({navigation, route}) {
                         <TituloMesa> {idSala.title} </TituloMesa>
 
                         <ViewJoin>
-                            <ButtomJoin onPress={() => { setModalVisible(true); }}>
+                            <ButtomJoin onPress={IfUserAdm}>
                                 <TextJoin>Entrar</TextJoin>
                             </ButtomJoin>
                         </ViewJoin>

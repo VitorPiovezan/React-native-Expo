@@ -32,7 +32,7 @@ export default function Login({navigation}) {
     const [error, setError] = useState([]);
 
     async function handleLogin() {
-        const res = await api.post('/login', 
+        const res = await api.post('login', 
                     {
                         APELIDO_USUAR: nickname,
                         SENHA_USUAR: password,

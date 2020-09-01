@@ -24,9 +24,7 @@ const ListItems = (props) => {
     
         )
     }else{
-    return <TitleView>
-        <TitlePlayers>Sala sem Jogadores</TitlePlayers>
-    </TitleView>}
+    return <TitleView></TitleView>}
 }
 
 export default ListItems;
