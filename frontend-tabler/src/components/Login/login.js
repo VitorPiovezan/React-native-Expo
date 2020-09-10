@@ -27,8 +27,8 @@ export default function Login({navigation}) {
         }
     });
 
-    const [nickname, setNickname] = useState('Offar');
-    const [password, setPassword] = useState('123456');
+    const [nickname, setNickname] = useState('UserTeste');
+    const [password, setPassword] = useState('1234');
     const [error, setError] = useState([]);
 
     async function handleLogin() {

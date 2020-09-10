@@ -7,6 +7,7 @@ export const ContainerHome = styled.View`
 `;
 
 export const ContainerScroll = styled.View`
+    width: 85%;
     justify-content: center;
     align-items: center;
 `;
@@ -14,7 +15,7 @@ export const ContainerScroll = styled.View`
 //create room styles
 
 export const CreateRoomButton = styled.TouchableOpacity`
-    width: 85%;
+    width: 100%;
     flex-direction: row;
     align-items: center;
     padding: 15px 0px 15px 0px;

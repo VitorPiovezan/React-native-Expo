@@ -60,8 +60,7 @@ export default function Preview({navigation, route}) {
     const [players, setPlayers] = useState([])
     const [playerChar, setPlayerChar] = useState('')
     const [playerClass, setPlayerClass] = useState('')
-
-    
+  
 
     useEffect(() => {  //aqui faz o post para retornar os dados da mesa, caso cadastre um usuário ela roda novamente
         api.post('roomData', {
@@ -117,7 +116,10 @@ export default function Preview({navigation, route}) {
     }
 
     async function PostaIss() {   //Faz o post com os dados para o backend
-        const res = await api.post('joinRoom', 
+        if(mestreJoga === 0){
+        }
+        else{
+            const res = await api.post('joinRoom', 
                     {
                         ID_MESA: `${idSala.id}`,
                         ID_USUAR: `${userId.id}`,
@@ -132,20 +134,15 @@ export default function Preview({navigation, route}) {
                     }
                     setCadastrado(res.data.jaExiste)
                     setModalVisible(!modalVisible)
+            }
     }
 
-    async function PostCharOrMaster() {  //Faz uma conferencia para ver se o jogador esta com o nome vazio
-        if(mestreJoga === 0){
-            if(playerChar === '' || playerClass === ''){
-                Alert.alert('Falto um campo ae irmão')
-            }else{
-                PostaIss();                    
-            }
-        }else{
-                PostaIss(); 
-        }
-        
-
+    function CreatePlayer(){
+        setModalVisible(!modalVisible);
+        navigation.navigate('CreatePlayer', {
+            idSala: idSala,
+            userId: userId,
+        })        
     }
 
     function IfUserAdm(){   //confere se o usuário já está na mesa ou não
@@ -158,32 +155,14 @@ export default function Preview({navigation, route}) {
 
     function ModalJoinRoom(){  //modal caso o usuário não esteja na mesa
         if(checked === '0'){
+            setMestreJoga(0);
             return  <ViewPlayerRequest>
-
-                        <ViewImputsPlayerRequest>
-                            <TextPlayerRequest>Nome Char</TextPlayerRequest>
-                            <InputPlayerRequest
-                                    autoCapitalize='none'
-                                    onChangeText={setPlayerChar}
-                                    value={playerChar}
-                                    placeholder="Digite o nome do seu Char" />
-                        </ViewImputsPlayerRequest>
-
-                        <ViewImputsPlayerRequest>
-                            <TextPlayerRequest>Classe Char</TextPlayerRequest>
-                            <InputPlayerRequest
-                                    autoCapitalize='none' 
-                                    onChangeText={setPlayerClass}
-                                    value={playerClass} />
-                        </ViewImputsPlayerRequest>
-
-
-                        <ButtonJoinRoom onPress={PostCharOrMaster}><TextModalPlayer>Solicitar</TextModalPlayer></ButtonJoinRoom>
+                        <ButtonJoinRoom onPress={CreatePlayer}><TextModalPlayer>Entrar</TextModalPlayer></ButtonJoinRoom>
                     </ViewPlayerRequest>
         } else {
             setMestreJoga(1);
             return  <ViewPlayerRequest>
-                        <ButtonJoinRoom onPress={PostCharOrMaster}><TextModalPlayer>Solicitar</TextModalPlayer></ButtonJoinRoom>
+                        <ButtonJoinRoom onPress={PostaIss}><TextModalPlayer>Entrar</TextModalPlayer></ButtonJoinRoom>
                     </ViewPlayerRequest>
         }
     }

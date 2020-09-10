@@ -253,7 +253,7 @@ export const ViewPlayerRequest = styled.View`
 `;
 
 export const ViewImputsPlayerRequest = styled.View`
-    width: 100%;
+    width: 85%;
     padding: 5px 0px 5px 0px;
     justify-content: center;
 `;
