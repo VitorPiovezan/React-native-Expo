@@ -8,6 +8,7 @@ import EditProfile from '../EditProfile/editprofile';
 import Preview from '../Room/preview'
 import CreateRoom from '../CreateRoom/createroom'
 import CreatePlayer from '../Room/createplayer'
+import Room from '../Room/room'
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,7 @@ export default function App() {
         <Stack.Screen name="Preview" component={Preview} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
         <Stack.Screen name="CreateRoom" component={CreateRoom} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
         <Stack.Screen name="CreatePlayer" component={CreatePlayer} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
+        <Stack.Screen name="Room" component={Room} options={{gestureEnabled: true, gestureDirection: "horizontal"}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

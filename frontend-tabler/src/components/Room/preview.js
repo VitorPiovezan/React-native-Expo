@@ -148,6 +148,10 @@ export default function Preview({navigation, route}) {
     function IfUserAdm(){   //confere se o usuário já está na mesa ou não
         if(rooms.alreadyIn === 'yes'){
             setModalJoined(true);
+            navigation.navigate('Room', {
+                userId: userId,
+                idSala: idSala
+            })
         }else{
             setModalVisible(true);
         }

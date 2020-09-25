@@ -27,6 +27,16 @@ export const DetailsMestre = styled.View`
     border-bottom-color: #777;
 `;
 
+export const LinkDiscord = styled.View`
+    width: 85%;
+    height: 40px;
+    flex-direction: row;
+    align-items: center;
+    border-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #777;
+`;
+
 export const Avatar = styled.Image`
     height: 50;
     width: 50;
