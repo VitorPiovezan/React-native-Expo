@@ -128,7 +128,9 @@ export default function Preview({navigation, route}) {
                         CLASSECHAR_JOGA: `${playerClass}`,
                         UserName: `${userId.apelido}`
                     });
+                    console.log('--------------------------------------------')
                     console.log(res)
+                    console.log('--------------------------------------------')
                     if(res.data.jaExiste === 'mestre'){
                         Alert.alert('Tabler','Já existe um mestre nesta mesa')
                     }
@@ -251,7 +253,7 @@ export default function Preview({navigation, route}) {
                     <ContainerScroll>
 
                     <DetailsRPG>
-                        <TitleRPG> {idSala.formato} </TitleRPG>
+                        <TitleRPG> {idSala.desc} </TitleRPG>
                     </DetailsRPG>
 
                     <DetailsRoom>
@@ -260,6 +262,7 @@ export default function Preview({navigation, route}) {
                                 <DetailsText><B>Nivel Inicial do Char:</B> {idSala.lvlInic}</DetailsText>
                                 <DetailsText><B>Máximo de Players:</B> {idSala.qtdeJog}</DetailsText>
                                 <DetailsText><B>Nivel de Experiência:</B> {idSala.expJogo}</DetailsText>
+                                <DetailsText><B>Formato:</B> {idSala.formato}</DetailsText>
                             </DetailsRoomText>
                     </DetailsRoom>
                 

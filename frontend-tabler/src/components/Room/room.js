@@ -125,7 +125,7 @@ export default function Room({navigation, route}) {
                     <ContainerScroll>
 
                     <DetailsRPG>
-                        <TitleRPG> {idSala.formato} </TitleRPG>
+                        <TitleRPG> {idSala.desc} </TitleRPG>
                     </DetailsRPG>
                 
                     <MestreStatus/>

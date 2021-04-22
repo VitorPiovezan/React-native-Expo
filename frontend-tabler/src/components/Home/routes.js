@@ -21,10 +21,10 @@ export default function HomeTab({navitagion, route}) {
                           backgroundColor: '#DDBC91'
                         }
                       }}
-                      initialRouteName="Profile">
-        <Tab.Screen name="Rooms" component={Feed} initialParams={{ userId: user }}/>
+                      initialRouteName="Perfil">
+        <Tab.Screen name="Salas" component={Feed} initialParams={{ userId: user }}/>
         <Tab.Screen name="Home" component={Home} initialParams={{ userId: user }}/>
-        <Tab.Screen name="Profile" component={Profile} initialParams={{ userId: user }}/>
+        <Tab.Screen name="Perfil" component={Profile} initialParams={{ userId: user }}/>
       </Tab.Navigator>
   );
 }

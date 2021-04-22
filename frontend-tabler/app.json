@@ -24,7 +24,7 @@
     },
     "android": {
       "package": "com.cubisme.tabler.apk"
-    }
-
+    },
+    "description": ""
   }
 }

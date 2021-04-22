@@ -85,7 +85,7 @@ export default function Profile({ navigation, route }) {
                         </ViewConfigList>
 
                         <ViewContRodape>
-                            <TextBoxRodape>Feito com ♡ por Cubisme Design Team</TextBoxRodape>
+                            {/* <TextBoxRodape>Feito com ♡ por Cubisme Design Team</TextBoxRodape> */}
                             <TextBoxRodape>Version: 0.40</TextBoxRodape>
                         </ViewContRodape>
 

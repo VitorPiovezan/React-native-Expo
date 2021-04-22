@@ -20,7 +20,7 @@ const ListItems = (props) => {
                 </ViewTitles>
 
                 <ViewButtonRoom><ButtonRoom onPress={props.handlePressJoin}>
-                    <TextButtonRoom>Join</TextButtonRoom>
+                    <TextButtonRoom>Entrar</TextButtonRoom>
                 </ButtonRoom></ViewButtonRoom>
             </ViewRoom>
 

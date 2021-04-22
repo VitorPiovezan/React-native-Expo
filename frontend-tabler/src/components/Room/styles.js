@@ -144,9 +144,9 @@ export const DetailsRPG = styled.View`
 `;
 
 export const TitleRPG = styled.Text`
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 14px;
     color: #5E3200;
+    text-align:center;
 `;
 
 export const DetailsRoom = styled.View`
