@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-    ContainerHome,
-    Input,
-    ViewOpenRoom,
-    TextPesq,
-    ButtonSearch,
-    ViewSearch,
-    TextSearch,
-    ViewSearchRoom,
-    ImgSearchConfig,
-    ButtonSearch1
+  ContainerHome,
+  Input,
+  ViewOpenRoom,
+  TextPesq,
+  ButtonSearch,
+  ViewSearch,
+  TextSearch,
+  ViewSearchRoom,
+  ImgSearchConfig,
+  ButtonSearch1,
 } from './styles';
 
 import api from '../../api/api';
@@ -18,165 +18,162 @@ import ListItems from './feed_view';
 import { ScrollView } from 'react-native-gesture-handler';
 import { StyleSheet, ImageBackground } from 'react-native';
 
-export default function Feed({route, navigation}) {
+export default function Feed({ route, navigation }) {
+  const user = route.params.userId;
 
-    const user = (route.params.userId)
+  const styles = StyleSheet.create({
+    backgroundImage: {
+      flex: 1,
+      height: '100%',
+      width: '100%',
+      alignItems: 'center',
+    },
+    container: {
+      flex: 1,
+      backgroundColor: '#D9BA8E',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    body: {
+      backgroundColor: '#D9BA8E',
+    },
+  });
 
-    const styles = StyleSheet.create({
-        backgroundImage: {
-            flex: 1,
-            height: '100%',
-            width: '100%',
-            alignItems: 'center',
-        },
-        container: {
-            flex: 1,
-            backgroundColor: '#D9BA8E',
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-        body: {
-            backgroundColor: '#D9BA8E'
-        }
-    });
+  useEffect(() => {
+    api
+      .post('roomsNotJoined', {
+        ID_USUAR: user.id,
+      })
+      .then(res => {
+        setTables(res.data);
+        console.log(res.data);
+      });
+    /*  console.log('passou no useEffect') */
+  }, [tables]);
 
+  const [titleSearch, setTitleSearch] = useState('');
+  const [tables, setTables] = useState([]);
 
-
-    useEffect(() => {
-        api.get('homePage')
-            .then((res) => {
-                setTables(res.data)
-            })
-       /*  console.log('passou no useEffect') */
-      }, [tables]);
-
-    const [titleSearch, setTitleSearch] = useState('');
-    const [tables, setTables] = useState([]);
-    
-    const backFeed = () => {
-        setTitleSearch('')
-        /* console.log(titleSearch)
+  const backFeed = () => {
+    setTitleSearch('');
+    /* console.log(titleSearch)
         console.log('passou no backFeed') */
-        api.get('homePage')
-            .then((res) => {
-                setTables(res.data)
-            })
+    api
+      .post('homePage', {
+        ID_USUAR: user.id,
+      })
+      .then(res => {
+        setTables(res.data);
+      });
+  };
+
+  function checkSearch(strPalavra) {
+    return strPalavra.includes('/', 0);
+  }
+
+  function handleChange() {
+    if (checkSearch(titleSearch) === true) {
+      setTables(null);
     }
 
-    function checkSearch (strPalavra){
-        return strPalavra.includes('/',0)
+    if (titleSearch !== '') {
+      var search = 'searchRooms/' + titleSearch;
+    } else {
+      var search = 'homePage';
     }
 
-    function handleChange() {
-        
-        if (checkSearch(titleSearch) === true){
-            setTables(null)
-        }
-
-        if ( titleSearch !== '' ) {
-            var search = 'searchRooms/' + titleSearch
-        } else {
-            var search = 'homePage'
-        };
-
-        if (search === undefined) {
-            var uri = 'homePage'
-        } else {
-            var uri = search;
-        };
-
-        api.get(`${uri}`)
-            .then((res) => {
-                setTables(res.data)
-            })
-        console.log('passou no handleChange')
+    if (search === undefined) {
+      var uri = 'homePage';
+    } else {
+      var uri = search;
     }
 
-    const handlePressJoinRoom = (RoomID) => {
-        //Aqui vou passar os parametros para a Pre-view da sala 
-        navigation.navigate('Preview', {
-            roomID: RoomID,
-            userId: user
-        })
-        /* console.log(RoomID) */
-    }
+    api.get(`${uri}`).then(res => {
+      setTables(res.data);
+    });
+    console.log('passou no handleChange');
+  }
 
-    //Apartir daqui é a renderização em tela.
-    let listaDeItens = null
+  const handlePressJoinRoom = RoomID => {
+    //Aqui vou passar os parametros para a Pre-view da sala
+    navigation.navigate('Preview', {
+      roomID: RoomID,
+      userId: user,
+    });
+    /* console.log(RoomID) */
+  };
 
-    if (tables !== null) {
-        listaDeItens = tables.map(item => {
-            return <ListItems
-                key={item.id}
-                title={item.title}
-                qtdeJog={item.qtdeJog}
-                admMesa={item.admMesa}
-                handlePressJoin={() => handlePressJoinRoom(item)}
-            />
-        })
-    }
+  //Apartir daqui é a renderização em tela.
+  let listaDeItens = null;
 
-
-    else {
-        return <ContainerHome>
-            <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage} >
-                <ViewSearch>
-                    <Input placeholder="Pesquisar salas.."
-                        value={titleSearch}
-                        onChangeText={setTitleSearch}
-                        textContentType='name' />
-
-                    <ButtonSearch onPress={handleChange} ><TextSearch>Busca</TextSearch></ButtonSearch>
-                </ViewSearch>
-                <ViewSearchRoom>
-                    <ImgSearchConfig source={require('../../assets/images/puts.png')} />
-                    <TextPesq>Sorry Bro, you shall not pass son of a Bitch</TextPesq>
-                    <ButtonSearch1 onPress={backFeed} ><TextSearch>Voltar</TextSearch></ButtonSearch1>
-                </ViewSearchRoom>
-
-            </ImageBackground>
-        </ContainerHome>
-    }
-
+  if (tables !== null) {
+    listaDeItens = tables.map(item => {
+      return (
+        <ListItems
+          key={item.id}
+          title={item.title}
+          qtdeJog={item.qtdeJog}
+          admMesa={item.admMesa}
+          handlePressJoin={() => handlePressJoinRoom(item)}
+        />
+      );
+    });
+  } else {
     return (
-        <ContainerHome>
-            <ImageBackground source={require('../../assets/images/fundo.png')} style={styles.backgroundImage} >
-                <ViewSearch>
-                    <Input placeholder="Pesquisar salas.."
-                        value={titleSearch}
-                        onChangeText={setTitleSearch} 
-                        textContentType='name'/>
+      <ContainerHome>
+        <ImageBackground
+          source={require('../../assets/images/fundo.png')}
+          style={styles.backgroundImage}
+        >
+          <ViewSearch>
+            <Input
+              placeholder="Pesquisar salas.."
+              value={titleSearch}
+              onChangeText={setTitleSearch}
+              textContentType="name"
+            />
 
-                    <ButtonSearch onPress={handleChange} ><TextSearch>Busca</TextSearch></ButtonSearch>
-                </ViewSearch>
-                <ViewOpenRoom>
-                    <ScrollView>
+            <ButtonSearch onPress={handleChange}>
+              <TextSearch>Busca</TextSearch>
+            </ButtonSearch>
+          </ViewSearch>
+          <ViewSearchRoom>
+            <ImgSearchConfig source={require('../../assets/images/puts.png')} />
+            <TextPesq>Sorry Bro, you shall not pass son of a Bitch</TextPesq>
+            <ButtonSearch1 onPress={backFeed}>
+              <TextSearch>Voltar</TextSearch>
+            </ButtonSearch1>
+          </ViewSearchRoom>
+        </ImageBackground>
+      </ContainerHome>
+    );
+  }
 
-                        {listaDeItens}
+  return (
+    <ContainerHome>
+      <ImageBackground
+        source={require('../../assets/images/fundo.png')}
+        style={styles.backgroundImage}
+      >
+        <ViewSearch>
+          <Input
+            placeholder="Pesquisar salas.."
+            value={titleSearch}
+            onChangeText={setTitleSearch}
+            textContentType="name"
+          />
 
-                    </ScrollView>
-                </ViewOpenRoom>
-
-            </ImageBackground>
-        </ContainerHome>
-
-    )
-
-
+          <ButtonSearch onPress={handleChange}>
+            <TextSearch>Busca</TextSearch>
+          </ButtonSearch>
+        </ViewSearch>
+        <ViewOpenRoom>
+          <ScrollView>{listaDeItens}</ScrollView>
+        </ViewOpenRoom>
+      </ImageBackground>
+    </ContainerHome>
+  );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* import React, { Component } from 'react';
 import { Video } from 'expo-av';
